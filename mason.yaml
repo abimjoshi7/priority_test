@@ -1,0 +1,5 @@
+bricks:
+  clean_architecture:
+    git:
+      url: "https://github.com/abimjoshi7/mason_bricks.git"
+      path: clean_architecture
