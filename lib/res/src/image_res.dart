@@ -1,3 +1,5 @@
+part of '../res.dart';
+
 class ImageRes {
   const ImageRes._();
 

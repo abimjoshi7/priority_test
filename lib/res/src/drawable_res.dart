@@ -1,3 +1,5 @@
+part of '../res.dart';
+
 class DrawableRes {
   const DrawableRes._();
 

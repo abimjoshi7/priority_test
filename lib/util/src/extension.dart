@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of '../util.dart';
 
 MediaQueryData mediaQueryData = MediaQueryData.fromView(
     WidgetsBinding.instance.platformDispatcher.views.single);

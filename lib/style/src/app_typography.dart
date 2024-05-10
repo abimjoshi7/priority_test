@@ -1,10 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:test_project/util/extension.dart';
+part of '../style.dart';
 
 class AppTypography {
   const AppTypography._();
-
-  static const _fontFamily = "Urbanist";
 
   static const _bold = FontWeight.w700;
   static const _semibold = FontWeight.w600;
@@ -22,67 +19,67 @@ class AppTypography {
 
   static TextTheme get textTheme => TextTheme(
         displayMedium: TextStyle(
-          fontFamily: _fontFamily,
+          fontFamily: StringRes.kFontFamily,
           fontSize: _fontSize48,
           fontWeight: _bold,
         ),
         displaySmall: TextStyle(
-          fontFamily: _fontFamily,
+          fontFamily: StringRes.kFontFamily,
           fontSize: _fontSize36,
           fontWeight: _semibold,
         ),
         headlineLarge: TextStyle(
-          fontFamily: _fontFamily,
+          fontFamily: StringRes.kFontFamily,
           fontSize: _fontSize24,
           fontWeight: _semibold,
         ),
         headlineMedium: TextStyle(
-          fontFamily: _fontFamily,
+          fontFamily: StringRes.kFontFamily,
           fontSize: _fontSize20,
           fontWeight: _semibold,
         ),
         headlineSmall: TextStyle(
-          fontFamily: _fontFamily,
+          fontFamily: StringRes.kFontFamily,
           fontSize: _fontSize16,
           fontWeight: _semibold,
         ),
         titleLarge: TextStyle(
-          fontFamily: _fontFamily,
+          fontFamily: StringRes.kFontFamily,
           fontSize: _fontSize14,
           fontWeight: _semibold,
         ),
         titleMedium: TextStyle(
-          fontFamily: _fontFamily,
+          fontFamily: StringRes.kFontFamily,
           fontSize: _fontSize12,
           fontWeight: _semibold,
         ),
         bodyLarge: TextStyle(
-          fontFamily: _fontFamily,
+          fontFamily: StringRes.kFontFamily,
           fontSize: _fontSize16,
           fontWeight: _regular,
         ),
         bodyMedium: TextStyle(
-          fontFamily: _fontFamily,
+          fontFamily: StringRes.kFontFamily,
           fontSize: _fontSize14,
           fontWeight: _regular,
         ),
         bodySmall: TextStyle(
-          fontFamily: _fontFamily,
+          fontFamily: StringRes.kFontFamily,
           fontSize: _fontSize12,
           fontWeight: _regular,
         ),
         labelLarge: TextStyle(
-          fontFamily: _fontFamily,
+          fontFamily: StringRes.kFontFamily,
           fontSize: _fontSize14,
           fontWeight: _medium,
         ),
         labelMedium: TextStyle(
-          fontFamily: _fontFamily,
+          fontFamily: StringRes.kFontFamily,
           fontSize: _fontSize12,
           fontWeight: _medium,
         ),
         labelSmall: TextStyle(
-          fontFamily: _fontFamily,
+          fontFamily: StringRes.kFontFamily,
           fontSize: _fontSize10,
           fontWeight: _medium,
         ),
