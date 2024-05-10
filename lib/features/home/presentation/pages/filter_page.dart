@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:test_project/features/home/presentation/pages/product_detail_page.dart';
 import 'package:test_project/models/product.dart';
 import 'package:test_project/res/res.dart';
-import 'package:test_project/widgets/custom_container.dart';
 import 'package:test_project/widgets/widgets.dart';
 
 class FilterPage extends HookWidget {
@@ -23,7 +23,7 @@ class FilterPage extends HookWidget {
                     (e) => Column(
                       children: [
                         CustomContainer(
-                          child: Image.asset(
+                          child: SvgPicture.asset(
                             DrawableRes.kLogoAdidas,
                           ),
                         ),
@@ -36,8 +36,8 @@ class FilterPage extends HookWidget {
           ),
           CustomSection(
             label: "Price Range",
-            child: Slider.adaptive(
-              value: 0,
+            child: RangeSlider(
+              values: RangeValues(0, 1),
               onChanged: (value) {},
             ),
           ),
@@ -55,6 +55,7 @@ class FilterPage extends HookWidget {
             label: "Color",
             child: Row(),
           ),
+          Spacer(),
           Footer(
             btnText: "Apply",
             leading: OutlinedButton(

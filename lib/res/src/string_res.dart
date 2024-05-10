@@ -6,4 +6,6 @@ class StringRes {
   static const kFontFamily = "Urbanist";
 
   static const kAddToCart = "ADD TO CART";
+  static const kFilter = "FILTER";
+  static const kDiscover = "Discover";
 }

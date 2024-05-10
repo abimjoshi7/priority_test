@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:test_project/res/res.dart' show StringRes;
 
 class Footer extends StatelessWidget {
@@ -19,40 +21,62 @@ class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Colors.grey.withOpacity(0.2),
-            theme.scaffoldBackgroundColor,
-          ],
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5), // Shadow color
-            spreadRadius: 2,
-            blurRadius: 4,
-            offset: const Offset(0, 3),
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.all(
+            16,
           ),
-        ],
-      ),
-      child: Row(
-        children: [
-          leading ??
-              Column(
-                children: [
-                  Text(leadingLabel ?? "Price"),
-                  Text("\$${leadingprice ?? 235.00}"),
-                ],
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                theme.colorScheme.primary,
+                theme.colorScheme.primaryContainer.withOpacity(
+                  0.8,
+                ),
+              ],
+            ),
+            // boxShadow: [
+            //   BoxShadow(
+            //     color: Colors.grey.withOpacity(0.5), // Shadow color
+            //     spreadRadius: 2,
+            //     blurRadius: 4,
+            //     offset: const Offset(0, 3),
+            //   ),
+            // ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 32,
+            vertical: 16,
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: leading ??
+                    Column(
+                      children: [
+                        Text(leadingLabel ?? "Price"),
+                        Text("\$${leadingprice ?? 235.00}"),
+                      ],
+                    ),
               ),
-          ElevatedButton(
-            onPressed: onPressed,
-            child: const Text(StringRes.kAddToCart),
-          )
-        ],
-      ),
+              SizedBox(
+                width: 24,
+              ),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: onPressed,
+                  child: const Text(StringRes.kAddToCart),
+                ),
+              )
+            ],
+          ),
+        )
+      ],
     );
   }
 }
