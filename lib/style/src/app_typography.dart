@@ -17,6 +17,8 @@ class AppTypography {
   static final double _fontSize36 = 36.fSize;
   static final double _fontSize48 = 48.fSize;
 
+  static final color = AppPalette.kClrBlack;
+
   static TextTheme get textTheme => TextTheme(
         displayMedium: TextStyle(
           fontFamily: StringRes.kFontFamily,
@@ -62,6 +64,7 @@ class AppTypography {
           fontFamily: StringRes.kFontFamily,
           fontSize: _fontSize14,
           fontWeight: _regular,
+          color: color,
         ),
         bodySmall: TextStyle(
           fontFamily: StringRes.kFontFamily,
@@ -72,6 +75,7 @@ class AppTypography {
           fontFamily: StringRes.kFontFamily,
           fontSize: _fontSize14,
           fontWeight: _medium,
+          color: color,
         ),
         labelMedium: TextStyle(
           fontFamily: StringRes.kFontFamily,
@@ -82,6 +86,7 @@ class AppTypography {
           fontFamily: StringRes.kFontFamily,
           fontSize: _fontSize10,
           fontWeight: _medium,
+          color: color,
         ),
       );
 }

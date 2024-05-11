@@ -6,21 +6,28 @@ class CustomContainer extends StatelessWidget {
     Key? key,
     this.boxShape,
     required this.child,
+    this.height,
+    this.width,
   }) : super(key: key);
 
   final BoxShape? boxShape;
   final Widget child;
+  final double? height;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Container(
+      height: height,
+      width: width,
       decoration: BoxDecoration(
         shape: boxShape ?? BoxShape.rectangle,
         color: context.containerColor,
-        borderRadius: BorderRadius.circular(
-          24,
-        ),
+        borderRadius: boxShape == BoxShape.circle
+            ? null
+            : BorderRadius.circular(
+                24,
+              ),
       ),
       child: child,
     );

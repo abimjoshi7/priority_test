@@ -13,26 +13,33 @@ class ReviewPage extends HookWidget {
     final tabController = useTabController(initialLength: 6);
     return Scaffold(
       appBar: AppBar(
-        bottom: PreferredSize(
-          preferredSize: Size(width, height * 0.2),
-          child: TabBar(
+        centerTitle: true,
+        title: Text("Reviews"),
+      ),
+      body: Column(
+        children: [
+          TabBar(
+            isScrollable: true,
             controller: tabController,
             tabs: List.generate(
-              6,
+              tabController.length,
               (index) => Tab(
                 text: "Tab $index",
               ),
             ),
           ),
-        ),
-      ),
-      body: TabBarView(
-        controller: tabController,
-        children: [
-          ListView.builder(
-            itemCount: 6,
-            itemBuilder: (context, index) => ReviewTile(),
-          )
+          Expanded(
+            child: TabBarView(
+              controller: tabController,
+              children: List.generate(
+                tabController.length,
+                (index) => ListView.builder(
+                  itemCount: 6,
+                  itemBuilder: (context, index) => ReviewTile(),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

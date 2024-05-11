@@ -5,7 +5,7 @@ class StringRes {
 
   static const kFontFamily = "Urbanist";
 
-  static const kAddToCart = "ADD TO CART";
-  static const kFilter = "FILTER";
+  static const kAddToCart = "Add to cart";
+  static const kFilter = "Filter";
   static const kDiscover = "Discover";
 }

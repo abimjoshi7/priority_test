@@ -1,4 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:test_project/res/res.dart';
+import 'package:test_project/routes/routes.dart';
+import 'package:test_project/util/util.dart';
 
 import 'package:test_project/widgets/widgets.dart';
 
@@ -11,52 +16,69 @@ class ProductDetailPage extends StatelessWidget {
       appBar: AppBar(),
       body: Column(
         children: [
-          Placeholder(),
-          Spacer(),
-          Column(
-            children: [
-              Text(
-                "Product Title",
-              ),
-              Row(
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
                 children: [
-                  Text("Stars"),
-                  Text("Reviews"),
+                  CustomContainer(
+                    height: context.height * 0.3,
+                    width: context.width * 0.9,
+                    child: Image.asset(
+                      ImageRes.kProduct7,
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        "Product Title",
+                      ),
+                      Row(
+                        children: [
+                          Text("Stars"),
+                          Text("Reviews"),
+                        ],
+                      )
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text("Size"),
+                      Text("List of sizes"),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text("Description"),
+                      Text("List of sizes"),
+                    ],
+                  ),
+                  CustomSection(
+                    label: "Reviews",
+                    child: Column(
+                      children: List.generate(
+                        3,
+                        (index) => ReviewTile(),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: context.width,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                      ),
+                      child: OutlinedButton(
+                        onPressed: () => Navigator.pushNamed(
+                          context,
+                          RouteRes.kReviewPage,
+                        ),
+                        child: Text("SEE ALL REVIEW"),
+                      ),
+                    ),
+                  ),
                 ],
-              )
-            ],
-          ),
-          Spacer(),
-          Column(
-            children: [
-              Text("Size"),
-              Text("List of sizes"),
-            ],
-          ),
-          Spacer(),
-          Column(
-            children: [
-              Text("Description"),
-              Text("List of sizes"),
-            ],
-          ),
-          Spacer(),
-          CustomSection(
-            label: "Reviews",
-            child: Column(
-              children: List.generate(
-                3,
-                (index) => ReviewTile(),
               ),
             ),
-          ),
-          Spacer(),
-          OutlinedButton(
-            onPressed: () {},
-            child: Text("SEE ALL REVIEW"),
-          ),
-          Spacer(
-            flex: 2,
           ),
           Footer(
             onPressed: () {},
@@ -99,8 +121,12 @@ class CustomSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label),
+        Text(
+          label,
+          style: context.titleLarge,
+        ),
         child,
       ],
     );
