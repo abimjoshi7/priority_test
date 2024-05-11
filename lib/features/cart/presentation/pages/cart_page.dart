@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'package:test_project/features/home/presentation/pages/home_page.dart';
 import 'package:test_project/res/res.dart';
+import 'package:test_project/routes/routes.dart';
 import 'package:test_project/widgets/footer.dart';
 import 'package:test_project/widgets/widgets.dart';
 
@@ -20,39 +21,48 @@ class CartPage extends HookWidget {
       appBar: AppBar(),
       body: Column(
         children: [
-          ...products.map(
-            (e) => Row(
+          Expanded(
+            child: Column(
               children: [
-                CustomContainer(
-                  child: Image.asset(
-                    ImageRes.kProduct1,
+                ...products.map(
+                  (e) => Row(
+                    children: [
+                      CustomContainer(
+                        child: Image.asset(
+                          ImageRes.kProduct1,
+                        ),
+                      ),
+                      Column(
+                        children: [
+                          Text("name"),
+                          Row(
+                            children: [
+                              Text("brand"),
+                              Text("color"),
+                              Text("size"),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text("price"),
+                              // IncDecBtn(number: number),
+                            ],
+                          ),
+                        ],
+                      )
+                    ],
                   ),
                 ),
-                Column(
-                  children: [
-                    Text("name"),
-                    Row(
-                      children: [
-                        Text("brand"),
-                        Text("color"),
-                        Text("size"),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text("price"),
-                        // IncDecBtn(number: number),
-                      ],
-                    ),
-                  ],
-                )
               ],
             ),
           ),
           Footer(
-            leadingLabel: "Grand Total",
-            btnText: "CHECK OUT",
-            onPressed: () {},
+            leadingLabel: StringRes.kGrandTotal,
+            btnText: StringRes.kCheckOut.toUpperCase(),
+            onPressed: () => Navigator.pushNamed(
+              context,
+              RouteRes.kOrderSummaryPage,
+            ),
           ),
         ],
       ),

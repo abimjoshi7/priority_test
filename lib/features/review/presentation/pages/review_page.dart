@@ -7,26 +7,26 @@ class ReviewPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
-
-    final tabController = useTabController(initialLength: 6);
+    final tabController =
+        useTabController(initialLength: ReviewNumbers.values.length);
+    var data = "Reviews";
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Reviews"),
+        title: Text(data),
       ),
       body: Column(
         children: [
           TabBar(
             isScrollable: true,
             controller: tabController,
-            tabs: List.generate(
-              tabController.length,
-              (index) => Tab(
-                text: "Tab $index",
-              ),
-            ),
+            tabs: ReviewNumbers.values
+                .map(
+                  (e) => Tab(
+                    text: e.label,
+                  ),
+                )
+                .toList(),
           ),
           Expanded(
             child: TabBarView(
@@ -44,4 +44,16 @@ class ReviewPage extends HookWidget {
       ),
     );
   }
+}
+
+enum ReviewNumbers {
+  All("All"),
+  Five("5 stars"),
+  Four("4 stars"),
+  Three("3 stars"),
+  Two("2 stars"),
+  One("1 star");
+
+  final String label;
+  const ReviewNumbers(this.label);
 }

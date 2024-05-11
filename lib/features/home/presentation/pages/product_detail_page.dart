@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:test_project/res/res.dart';
 import 'package:test_project/routes/routes.dart';
 import 'package:test_project/util/util.dart';
@@ -81,10 +82,82 @@ class ProductDetailPage extends StatelessWidget {
             ),
           ),
           Footer(
-            onPressed: () {},
+            onPressed: () => showModalBottomSheet(
+              context: context,
+              builder: (context) => CartBottomSheet(),
+            ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class CartBottomSheet extends HookWidget {
+  @override
+  Widget build(BuildContext context) {
+    final qty = useTextEditingController();
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              StringRes.kAddToCart,
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.clear,
+              ),
+            ),
+          ],
+        ),
+        TextField(
+          controller: qty,
+          decoration: InputDecoration(
+            labelText: "Quantity",
+            suffixIcon: Row(
+              children: [
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.remove_circle_outline_outlined,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.add_circle_outline_rounded,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              children: [
+                Text(
+                  StringRes.kTotalPrice,
+                ),
+                Text("123")
+              ],
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.pushNamed(
+                context,
+                RouteRes.kCartPage,
+              ),
+              child: Text(
+                StringRes.kAddToCart,
+              ),
+            ),
+          ],
+        )
+      ],
     );
   }
 }

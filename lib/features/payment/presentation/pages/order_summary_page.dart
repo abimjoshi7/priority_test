@@ -11,44 +11,52 @@ class OrderSummaryPage extends StatelessWidget {
       appBar: AppBar(),
       body: Column(
         children: [
-          Column(
-            children: [
-              Text(
-                "Information",
-              ),
-              CustomSection(
-                label: "Payment Method",
-                child: Text(
-                  "Credit Card",
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Information",
+                    ),
+                    CustomSection(
+                      label: "Payment Method",
+                      child: Text(
+                        "Credit Card",
+                      ),
+                    ),
+                    Divider(),
+                    CustomSection(
+                      label: "Location",
+                      child: Text(
+                        "Location name",
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              Divider(),
-              CustomSection(
-                label: "Location",
-                child: Text(
-                  "Location name",
+                Column(
+                  children: [
+                    Text(
+                      "Order Detail",
+                    ),
+                    Column(
+                      children: List.generate(
+                        5,
+                        (index) => OrderTile(),
+                      ),
+                    )
+                  ],
                 ),
-              ),
-            ],
-          ),
-          Column(
-            children: [
-              Text(
-                "Order Detail",
-              ),
-              Column(
-                children: List.generate(
-                  5,
-                  (index) => OrderTile(),
+                Column(
+                  children: [
+                    Text("Payment Detail"),
+                    KeyValueTile(),
+                  ],
                 ),
-              )
-            ],
-          ),
-          Column(
-            children: [
-              Text("Payment Detail"),
-              KeyValueTile(),
-            ],
+              ],
+            ),
           ),
           Footer(
             btnText: "PAYMENT",

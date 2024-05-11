@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "617595951667",
+    "project_id": "prioritytest-dbaea",
+    "storage_bucket": "prioritytest-dbaea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:617595951667:android:e853fcf18b0d3a872a2146",
+        "android_client_info": {
+          "package_name": "com.example.test_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEf00Q3CQeQpUKxTzQ-tpMooNKEWif69Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -70,7 +70,7 @@ class Footer extends StatelessWidget {
               Expanded(
                 child: ElevatedButton(
                   onPressed: onPressed,
-                  child: const Text(StringRes.kAddToCart),
+                  child: Text(btnText ?? StringRes.kAddToCart),
                 ),
               )
             ],

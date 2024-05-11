@@ -45,6 +45,7 @@ class AppTheme {
       ),
       scaffoldBackgroundColor: AppPalette.kClrWhite,
       tabBarTheme: TabBarTheme(
+        tabAlignment: TabAlignment.start,
         indicatorSize: TabBarIndicatorSize.label,
         labelColor: AppPalette.kClrBlack,
         labelStyle: AppTypography.textTheme.headlineLarge,
