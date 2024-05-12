@@ -11,7 +11,7 @@ class AppButton {
   static OutlinedButtonThemeData get outlinedBtnThemeData =>
       OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          side: BorderSide(
+          side: const BorderSide(
             color: AppPalette.kClrOutlinedGrey,
           ),
           elevation: 0,

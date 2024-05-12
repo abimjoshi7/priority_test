@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 class CustomFilterChip extends HookWidget {
   const CustomFilterChip({
+    super.key,
     required this.label,
     required this.selected,
     required this.onSelected,

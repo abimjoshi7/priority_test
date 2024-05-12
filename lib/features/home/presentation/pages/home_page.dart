@@ -1,17 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:test_project/models/product.dart';
+import 'package:test_project/enums.dart';
 import 'package:test_project/res/res.dart';
-import 'package:test_project/routes/routes.dart';
 import 'package:test_project/style/style.dart';
 import 'package:test_project/util/util.dart';
 import 'package:test_project/widgets/custom_container.dart';
 import 'package:test_project/widgets/widgets.dart';
 
-import '../widgets/widgets.dart';
+import '../../domain/domain.dart';
+import '../presentation.dart';
 
 class HomePage extends HookWidget {
   const HomePage({super.key});
@@ -25,7 +22,6 @@ class HomePage extends HookWidget {
     final tabController = useTabController(
       initialLength: tabList.length,
     );
-    final products = <Product>[];
 
     return Scaffold(
       body: CustomScrollView(
@@ -35,81 +31,23 @@ class HomePage extends HookWidget {
             tabController,
             tabList,
           ),
-          SliverFillRemaining(
-            child: TabBarView(
-              controller: tabController,
-              children: List.generate(
-                tabController.length,
-                (index) => Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 30,
-                      crossAxisSpacing: 16,
-                      childAspectRatio: 0.8,
-                    ),
-                    itemBuilder: (context, index) => GestureDetector(
-                      onTap: () => Navigator.pushNamed(
-                        context,
-                        RouteRes.kProductDetailPage,
-                      ),
-                      child: GridTile(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: CustomContainer(
-                                child: Row(
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                            top: 24,
-                                            left: 16,
-                                          ),
-                                          child: SvgPicture.asset(
-                                            DrawableRes.kLogoAdidas,
-                                            colorFilter: ColorFilter.mode(
-                                              AppPalette.kClrSliver,
-                                              BlendMode.srcIn,
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Image.asset(
-                                            ImageRes.kProduct7,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            const Text("product name"),
-                            const Text("reviews"),
-                            const Text("price"),
-                          ],
-                        ),
-                      ),
-                    ),
-                    // ProductCard(
-                    //   product: products[index],
-                    // ),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          _buildProducts(tabController),
         ],
       ),
       floatingActionButton: const FliterBtn(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+  }
+
+  Widget _buildProducts(TabController tabController) {
+    return SliverFillRemaining(
+      child: TabBarView(
+        controller: tabController,
+        children: List.generate(
+          tabController.length,
+          (index) => ProductsGridView(index),
+        ),
+      ),
     );
   }
 
@@ -139,18 +77,18 @@ class HomePage extends HookWidget {
         style: context.displaySmall?.copyWith(
           fontWeight: FontWeight.w900,
           shadows: [
-            Shadow(
+            const Shadow(
               color: AppPalette.kClrBlack,
               blurRadius: 1.0,
-              offset: const Offset(
+              offset: Offset(
                 0.5,
                 0.5,
               ),
             ),
-            Shadow(
+            const Shadow(
               color: AppPalette.kClrSliver,
               blurRadius: 2.0,
-              offset: const Offset(
+              offset: Offset(
                 .5,
                 2.5,
               ),
@@ -192,9 +130,10 @@ class HomePage extends HookWidget {
 }
 
 class ProductCard extends StatelessWidget {
+  // ignore: unused_field
   final Product _product;
 
-  ProductCard({required Product product}) : _product = product;
+  const ProductCard({super.key, required Product product}) : _product = product;
 
   @override
   Widget build(BuildContext context) {
@@ -212,5 +151,3 @@ class ProductCard extends StatelessWidget {
     );
   }
 }
-
-class Product {}

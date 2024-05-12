@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'package:test_project/features/home/presentation/pages/home_page.dart';
 import 'package:test_project/res/res.dart';
 import 'package:test_project/routes/routes.dart';
-import 'package:test_project/widgets/footer.dart';
 import 'package:test_project/widgets/widgets.dart';
+
+import '../../../home/domain/domain.dart';
 
 class CartPage extends HookWidget {
   const CartPage({
-    Key? key,
+    super.key,
     required this.products,
-  }) : super(key: key);
+  });
 
   final List<Product> products;
 
@@ -32,7 +32,7 @@ class CartPage extends HookWidget {
                           ImageRes.kProduct1,
                         ),
                       ),
-                      Column(
+                      const Column(
                         children: [
                           Text("name"),
                           Row(
@@ -72,9 +72,9 @@ class CartPage extends HookWidget {
 
 class IncDecBtn extends StatelessWidget {
   const IncDecBtn({
-    Key? key,
+    super.key,
     required this.number,
-  }) : super(key: key);
+  });
 
   final ValueNotifier<int> number;
 
@@ -84,7 +84,7 @@ class IncDecBtn extends StatelessWidget {
       children: [
         IconButton(
           onPressed: () => number.value--,
-          icon: Icon(
+          icon: const Icon(
             Icons.remove_circle_outline,
           ),
         ),
@@ -93,7 +93,7 @@ class IncDecBtn extends StatelessWidget {
         ),
         IconButton(
           onPressed: () => number.value++,
-          icon: Icon(
+          icon: const Icon(
             Icons.add_circle_outline,
           ),
         ),

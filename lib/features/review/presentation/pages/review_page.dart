@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:test_project/enums.dart';
 import 'package:test_project/features/home/presentation/pages/product_detail_page.dart';
 
 class ReviewPage extends HookWidget {
@@ -35,7 +36,7 @@ class ReviewPage extends HookWidget {
                 tabController.length,
                 (index) => ListView.builder(
                   itemCount: 6,
-                  itemBuilder: (context, index) => ReviewTile(),
+                  itemBuilder: (context, index) => const ReviewTile(),
                 ),
               ),
             ),
@@ -44,16 +45,4 @@ class ReviewPage extends HookWidget {
       ),
     );
   }
-}
-
-enum ReviewNumbers {
-  All("All"),
-  Five("5 stars"),
-  Four("4 stars"),
-  Three("3 stars"),
-  Two("2 stars"),
-  One("1 star");
-
-  final String label;
-  const ReviewNumbers(this.label);
 }

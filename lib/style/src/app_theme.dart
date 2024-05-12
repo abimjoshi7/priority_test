@@ -3,7 +3,7 @@ part of '../style.dart';
 class AppTheme {
   const AppTheme._();
 
-  static ColorScheme get colorScheme => ColorScheme(
+  static ColorScheme get colorScheme => const ColorScheme(
         brightness: Brightness.light,
         primary: AppPalette.kClrWhite,
         onPrimary: AppPalette.kClrBlack,
@@ -16,12 +16,14 @@ class AppTheme {
         surface: AppPalette.kClrWhite,
         onSurface: AppPalette.kClrBlack,
         primaryContainer: AppPalette.kClrPaleGrey,
+        onPrimaryContainer: AppPalette.kClrSliver,
+        outline: AppPalette.kClrOutlinedGrey,
       );
 
   static ThemeData get themeData {
     return ThemeData(
       brightness: Brightness.light,
-      chipTheme: ChipThemeData(
+      chipTheme: const ChipThemeData(
         showCheckmark: false,
         shape: StadiumBorder(
           side: BorderSide(
@@ -32,11 +34,11 @@ class AppTheme {
       colorScheme: colorScheme,
       elevatedButtonTheme: AppButton.elevatedBtnThemeData,
       outlinedButtonTheme: AppButton.outlinedBtnThemeData,
-      sliderTheme: SliderThemeData(
+      sliderTheme: const SliderThemeData(
         activeTrackColor: AppPalette.kClrBlack,
         trackHeight: 1.5,
         thumbColor: AppPalette.kClrBlack,
-        rangeThumbShape: const CircleThumbShape(),
+        rangeThumbShape: CircleThumbShape(),
         // valueIndicatorTextStyle: TextStyle(
         //   color: AppPalette.kClrBlue,
         // ),

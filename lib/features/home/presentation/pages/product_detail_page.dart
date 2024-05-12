@@ -1,20 +1,33 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:test_project/enums.dart';
+import 'package:test_project/features/home/presentation/presentation.dart';
+
 import 'package:test_project/res/res.dart';
 import 'package:test_project/routes/routes.dart';
 import 'package:test_project/util/util.dart';
-
 import 'package:test_project/widgets/widgets.dart';
 
-class ProductDetailPage extends StatelessWidget {
-  const ProductDetailPage({super.key});
+class ProductDetailPage extends HookWidget {
+  const ProductDetailPage({
+    super.key,
+    required this.id,
+  });
+
+  final int id;
 
   @override
   Widget build(BuildContext context) {
+    final product = context.read<ProductCubit>().fetchProduct(id);
+    final selectedColor = useState(ShoeColor.White);
+
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: const [
+          CartBtn(),
+        ],
+      ),
       body: Column(
         children: [
           Expanded(
@@ -22,59 +35,164 @@ class ProductDetailPage extends StatelessWidget {
               child: Column(
                 children: [
                   CustomContainer(
-                    height: context.height * 0.3,
+                    height: context.height * 0.35,
                     width: context.width * 0.9,
-                    child: Image.asset(
-                      ImageRes.kProduct7,
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        "Product Title",
-                      ),
-                      Row(
-                        children: [
-                          Text("Stars"),
-                          Text("Reviews"),
-                        ],
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Text("Size"),
-                      Text("List of sizes"),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Text("Description"),
-                      Text("List of sizes"),
-                    ],
-                  ),
-                  CustomSection(
-                    label: "Reviews",
                     child: Column(
-                      children: List.generate(
-                        3,
-                        (index) => ReviewTile(),
-                      ),
+                      children: [
+                        Expanded(
+                          child: Image.asset(
+                            product.image,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: List.generate(
+                                  3,
+                                  (index) => Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 2,
+                                    ),
+                                    child: Icon(
+                                      Icons.circle,
+                                      size: 8,
+                                      color: index != 0
+                                          ? context.onContainerColor
+                                          : null,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.all(4),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                    16,
+                                  ),
+                                  color: context.primary,
+                                ),
+                                child: Row(
+                                  children: product.colors
+                                      .map(
+                                        (e) => Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 4, vertical: 4),
+                                          child: GestureDetector(
+                                            onTap: () => selectedColor.value =
+                                                ShoeColor.values
+                                                    .elementAt(e - 1),
+                                            child: Container(
+                                              height: 20,
+                                              width: 20,
+                                              decoration: BoxDecoration(
+                                                border: e ==
+                                                        ShoeColor
+                                                            .White.colorType
+                                                    ? Border.all(
+                                                        color: context
+                                                            .outlinedColor)
+                                                    : null,
+                                                shape: BoxShape.circle,
+                                                color: ShoeColor.values
+                                                    .firstWhere((element) =>
+                                                        element.colorType == e)
+                                                    .color,
+                                              ),
+                                              child: e ==
+                                                      selectedColor
+                                                          .value.colorType
+                                                  ? Icon(
+                                                      Icons.done,
+                                                      size: 10,
+                                                      color: e ==
+                                                              ShoeColor.White
+                                                                  .colorType
+                                                          ? context.onPrimary
+                                                          : context.primary,
+                                                    )
+                                                  : null,
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                      .toList(),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                  SizedBox(
-                    width: context.width,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                      ),
-                      child: OutlinedButton(
-                        onPressed: () => Navigator.pushNamed(
-                          context,
-                          RouteRes.kReviewPage,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8,
+                      horizontal: 24,
+                    ),
+                    child: Column(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              product.name,
+                              style: context.headlineSmall,
+                            ),
+                            const Row(
+                              children: [
+                                Text("Stars"),
+                                Text("Reviews"),
+                              ],
+                            )
+                          ],
                         ),
-                        child: Text("SEE ALL REVIEW"),
-                      ),
+                        CustomSection(
+                          label: StringRes.kSize,
+                          child: Row(
+                            children: product.size
+                                .map(
+                                  (e) => CircleAvatar(
+                                    child: Text(
+                                      e.toString(),
+                                    ),
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                        ),
+                        CustomSection(
+                          label: StringRes.kDescription,
+                          child: Text(product.description),
+                        ),
+                        CustomSection(
+                          label: StringRes.kReviews,
+                          child: Column(
+                            children: List.generate(
+                              3,
+                              (index) => const ReviewTile(),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: context.width,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                            ),
+                            child: OutlinedButton(
+                              onPressed: () => Navigator.pushNamed(
+                                context,
+                                RouteRes.kReviewPage,
+                              ),
+                              child: const Text("SEE ALL REVIEW"),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -82,9 +200,10 @@ class ProductDetailPage extends StatelessWidget {
             ),
           ),
           Footer(
+            leadingprice: product.price.toString(),
             onPressed: () => showModalBottomSheet(
               context: context,
-              builder: (context) => CartBottomSheet(),
+              builder: (context) => const CartBottomSheet(),
             ),
           ),
         ],
@@ -94,6 +213,8 @@ class ProductDetailPage extends StatelessWidget {
 }
 
 class CartBottomSheet extends HookWidget {
+  const CartBottomSheet({super.key});
+
   @override
   Widget build(BuildContext context) {
     final qty = useTextEditingController();
@@ -102,12 +223,12 @@ class CartBottomSheet extends HookWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
+            const Text(
               StringRes.kAddToCart,
             ),
             IconButton(
               onPressed: () {},
-              icon: Icon(
+              icon: const Icon(
                 Icons.clear,
               ),
             ),
@@ -121,13 +242,13 @@ class CartBottomSheet extends HookWidget {
               children: [
                 IconButton(
                   onPressed: () {},
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.remove_circle_outline_outlined,
                   ),
                 ),
                 IconButton(
                   onPressed: () {},
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.add_circle_outline_rounded,
                   ),
                 ),
@@ -138,7 +259,7 @@ class CartBottomSheet extends HookWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
+            const Column(
               children: [
                 Text(
                   StringRes.kTotalPrice,
@@ -151,7 +272,7 @@ class CartBottomSheet extends HookWidget {
                 context,
                 RouteRes.kCartPage,
               ),
-              child: Text(
+              child: const Text(
                 StringRes.kAddToCart,
               ),
             ),
@@ -163,9 +284,11 @@ class CartBottomSheet extends HookWidget {
 }
 
 class ReviewTile extends StatelessWidget {
+  const ReviewTile({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return ListTile(
+    return const ListTile(
       leading: CircleAvatar(),
       title: Column(
         children: [
@@ -183,25 +306,31 @@ class ReviewTile extends StatelessWidget {
 
 class CustomSection extends StatelessWidget {
   const CustomSection({
-    Key? key,
+    super.key,
     required this.label,
     required this.child,
-  }) : super(key: key);
+  });
 
   final String label;
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: context.titleLarge,
-        ),
-        child,
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: context.titleLarge,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: child,
+          ),
+        ],
+      ),
     );
   }
 }

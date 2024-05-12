@@ -11,4 +11,7 @@ class StringRes {
   static const kTotalPrice = "Total Price";
   static const kCheckOut = "Check out";
   static const kGrandTotal = "Grand Total";
+  static const kDescription = "Description";
+  static const kReviews = "Reviews";
+  static const kSize = "Size";
 }

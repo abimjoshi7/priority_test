@@ -7,21 +7,23 @@ mixin AppRouter {
       builder: (BuildContext context) {
         switch (routeSettings.name) {
           case RouteRes.kHomePage:
-            return HomePage();
+            return const HomePage();
           case RouteRes.kProductDetailPage:
-            return ProductDetailPage();
+            return ProductDetailPage(
+              id: routeSettings.arguments as int,
+            );
           case RouteRes.kFilterPage:
-            return FilterPage();
+            return const FilterPage();
           case RouteRes.kReviewPage:
-            return ReviewPage();
+            return const ReviewPage();
           case RouteRes.kCartPage:
-            return CartPage(
+            return const CartPage(
               products: [],
             );
           case RouteRes.kOrderSummaryPage:
-            return OrderSummaryPage();
+            return const OrderSummaryPage();
           default:
-            return _ErrorPage();
+            return const _ErrorPage();
         }
       },
     );
@@ -29,7 +31,7 @@ mixin AppRouter {
 }
 
 class _ErrorPage extends StatelessWidget {
-  const _ErrorPage({super.key});
+  const _ErrorPage();
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +39,12 @@ class _ErrorPage extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            Text(
+            const Text(
               "Page Not Found",
             ),
             ElevatedButton(
               onPressed: () {},
-              child: Text(
+              child: const Text(
                 "GO HOME",
               ),
             ),

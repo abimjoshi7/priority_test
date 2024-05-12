@@ -115,9 +115,9 @@ extension BuildContextEntension<T> on BuildContext {
 
   Color get containerColor => Theme.of(this).colorScheme.primaryContainer;
 
-  Color get background => Theme.of(this).colorScheme.background;
+  Color get outlinedColor => Theme.of(this).colorScheme.outline;
 
-  Color get unselectedWidgetColor => Theme.of(this).unselectedWidgetColor;
+  Color get onContainerColor => Theme.of(this).colorScheme.onPrimaryContainer;
 
   // * Popups
   /// Shows a modal bottom sheet with the given [child] widget.

@@ -3,12 +3,12 @@ import 'package:test_project/util/util.dart';
 
 class CustomContainer extends StatelessWidget {
   const CustomContainer({
-    Key? key,
+    super.key,
     this.boxShape,
     required this.child,
     this.height,
     this.width,
-  }) : super(key: key);
+  });
 
   final BoxShape? boxShape;
   final Widget child;

@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:test_project/res/res.dart' show StringRes;
 
 class Footer extends StatelessWidget {
@@ -24,15 +22,15 @@ class Footer extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.all(
-            16,
+          padding: const EdgeInsets.all(
+            8,
           ),
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                theme.colorScheme.primary,
+                theme.colorScheme.primary.withOpacity(0.4),
                 theme.colorScheme.primaryContainer.withOpacity(
                   0.8,
                 ),
@@ -64,7 +62,7 @@ class Footer extends StatelessWidget {
                       ],
                     ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 24,
               ),
               Expanded(

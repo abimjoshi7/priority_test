@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:test_project/features/home/presentation/pages/product_detail_page.dart';
-import 'package:test_project/models/product.dart';
+import 'package:fpdart/fpdart.dart';
+import 'package:test_project/enums.dart';
+import 'package:test_project/features/home/domain/domain.dart';
+import 'package:test_project/features/home/presentation/presentation.dart';
 import 'package:test_project/res/res.dart';
-import 'package:test_project/style/style.dart';
 import 'package:test_project/util/util.dart';
 import 'package:test_project/widgets/widgets.dart';
 
@@ -20,7 +22,7 @@ class FilterPage extends HookWidget {
     final selectedGender = useState(Gender.Man);
     final selectedColor = useState(0);
     final rangeValues = useState(
-      RangeValues(
+      const RangeValues(
         0,
         1,
       ),
@@ -42,160 +44,224 @@ class FilterPage extends HookWidget {
       body: Column(
         children: [
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomSection(
-                  label: label,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: ShoesBrands.values
-                          .map(
-                            (e) => Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 16,
-                              ),
-                              child: GestureDetector(
-                                onTap: () => selectedBrand.value = e,
-                                child: Column(
-                                  children: [
-                                    Stack(
-                                      children: [
-                                        CircleAvatar(
-                                          radius: context.width * 0.06,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8),
-                                            child: SvgPicture.asset(
-                                              DrawableRes.kLogoNike,
-                                              fit: BoxFit.contain,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 18,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomSection(
+                    label: label,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: ShoesBrands.values
+                            .map(
+                              (e) => Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: GestureDetector(
+                                  onTap: () => selectedBrand.value = e,
+                                  child: Column(
+                                    children: [
+                                      Stack(
+                                        children: [
+                                          CircleAvatar(
+                                            radius: context.width * 0.06,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8),
+                                              child: SvgPicture.asset(
+                                                e.icon,
+                                                fit: BoxFit.contain,
+                                              ),
                                             ),
                                           ),
+                                          if (selectedBrand.value == e)
+                                            const Positioned(
+                                              bottom: 1,
+                                              right: 1,
+                                              child: Icon(
+                                                size: 16,
+                                                Icons.check_circle,
+                                              ),
+                                            )
+                                        ],
+                                      ),
+                                      // CustomContainer(
+                                      //   boxShape: BoxShape.circle,
+                                      //   child: ,
+                                      // ),
+                                      Text(
+                                        e.name,
+                                        style: context.titleLarge,
+                                      ),
+                                      FutureBuilder<int>(
+                                        initialData: 0,
+                                        future: context
+                                            .read<ProductCubit>()
+                                            .getItemCount(e.brandType),
+                                        builder: (context, snapshot) => Text(
+                                          (snapshot.data ?? 0).toString(),
                                         ),
-                                        if (selectedBrand.value == e)
-                                          Positioned(
-                                            bottom: 1,
-                                            right: 1,
-                                            child: Icon(
-                                              size: 16,
-                                              Icons.check_circle,
-                                            ),
-                                          )
-                                      ],
-                                    ),
-                                    // CustomContainer(
-                                    //   boxShape: BoxShape.circle,
-                                    //   child: ,
-                                    // ),
-                                    Text(
-                                      e.name,
-                                      style: context.titleLarge,
-                                    ),
-                                    Text("item count"),
-                                  ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          )
-                          .toList(),
-                    ),
-                  ),
-                ),
-                CustomSection(
-                  label: label4,
-                  child: RangeSlider(
-                    values: rangeValues.value,
-                    onChanged: (value) => rangeValues.value = value,
-                    labels: RangeLabels(
-                      rangeValues.value.start.toString(),
-                      rangeValues.value.end.toString(),
-                    ),
-                  ),
-                ),
-                CustomSection(
-                  label: label3,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: SortOptions.values
-                          .map(
-                            (e) => FilterChip(
-                              selected: e == selectedSort.value,
-                              label: Text(
-                                e.label,
-                                style: context.titleLarge?.copyWith(
-                                  color: e == selectedSort.value
-                                      ? context.primary
-                                      : context.onPrimary,
-                                ),
-                              ),
-                              onSelected: (value) => selectedSort.value = e,
-                            ),
-                          )
-                          .toList(),
-                    ),
-                  ),
-                ),
-                CustomSection(
-                  label: label2,
-                  child: Row(
-                    children: Gender.values
-                        .map(
-                          (e) => FilterChip(
-                            showCheckmark: false,
-                            selected: e == selectedGender.value,
-                            label: Text(
-                              e.name,
-                              style: context.titleLarge?.copyWith(
-                                color: e == selectedGender.value
-                                    ? context.primary
-                                    : context.onPrimary,
-                              ),
-                            ),
-                            onSelected: (value) => selectedGender.value = e,
-                          ),
-                        )
-                        .toList(),
-                  ),
-                ),
-                CustomSection(
-                  label: label5,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: List.generate(
-                        4,
-                        (index) => FilterChip(
-                          side: BorderSide(
-                            color: index == selectedColor.value
-                                ? context.onPrimary
-                                : AppPalette.kClrOutlinedGrey,
-                          ),
-                          label: Row(
-                            children: [
-                              Icon(
-                                Icons.circle,
-                                size: 16,
-                              ),
-                              SizedBox(width: 8),
-                              Text("Black"),
-                            ],
-                          ),
-                          // labelPadding: EdgeInsets,
-                          onSelected: (value) => selectedColor.value = index,
-                        ),
+                            )
+                            .toList(),
                       ),
                     ),
                   ),
-                ),
-              ],
+                  CustomSection(
+                    label: label4,
+                    child: RangeSlider(
+                      values: rangeValues.value,
+                      onChanged: (value) => rangeValues.value = value,
+                      labels: RangeLabels(
+                        rangeValues.value.start.toString(),
+                        rangeValues.value.end.toString(),
+                      ),
+                    ),
+                  ),
+                  CustomSection(
+                    label: label3,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: SortOptions.values
+                            .map(
+                              (e) => Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: FilterChip(
+                                  selected: e == selectedSort.value,
+                                  label: Text(
+                                    e.label,
+                                    style: context.titleLarge?.copyWith(
+                                      color: e == selectedSort.value
+                                          ? context.primary
+                                          : context.onPrimary,
+                                    ),
+                                  ),
+                                  onSelected: (value) => selectedSort.value = e,
+                                ),
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    ),
+                  ),
+                  CustomSection(
+                    label: label2,
+                    child: Row(
+                      children: Gender.values
+                          .map(
+                            (e) => Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: FilterChip(
+                                showCheckmark: false,
+                                selected: e == selectedGender.value,
+                                label: Text(
+                                  e.name,
+                                  style: context.titleLarge?.copyWith(
+                                    color: e == selectedGender.value
+                                        ? context.primary
+                                        : context.onPrimary,
+                                  ),
+                                ),
+                                onSelected: (value) => selectedGender.value = e,
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
+                  CustomSection(
+                    label: label5,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: ShoeColor.values
+                            .map(
+                              (e) => Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: FilterChip(
+                                  side: BorderSide(
+                                    color: e.colorType == selectedColor.value
+                                        ? context.onPrimary
+                                        : context.outlinedColor,
+                                  ),
+                                  label: Row(
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            border: e == ShoeColor.White
+                                                ? Border.all(
+                                                    color:
+                                                        context.outlinedColor,
+                                                  )
+                                                : null),
+                                        child: Icon(
+                                          Icons.circle,
+                                          size: 16,
+                                          color: e.color,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Text(e.name),
+                                    ],
+                                  ),
+                                  // labelPadding: EdgeInsets,
+                                  onSelected: (value) =>
+                                      selectedColor.value = e.colorType,
+                                ),
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           Footer(
             btnText: btnText,
             leading: OutlinedButton(
-              onPressed: () {},
+              onPressed: () {
+                for (int i = 0; i < 10; i++) {
+                  context.read<ProductCubit>().insertProduct(
+                        Product(
+                          brandType: randomInt(0, 5).run(),
+                          colors: [1, 2, 3, 4],
+                          description: "description",
+                          genderType: randomInt(0, 3).run(),
+                          image: "assets/images/${i + 1}.png",
+                          id: i + 1,
+                          name: "Jordan 1 Retro High Tie Dye",
+                          price: randomInt(200, 2000).run().toDouble(),
+                          size: [44, 46, 48, 50],
+                          brandName: "Adidas",
+                          reviewsCount: randomInt(200, 2000).run(),
+                        ),
+                      );
+                }
+              },
+              //  => context.read<ProductCubit>().insertProduct(
+              //       const Product(
+              //         id: 1,
+              //         name: "test",
+              //         image: "image",
+              //         description: "description",
+              //         price: 1000,
+              //         size: [46, 48, 50],
+              //         brandType: 1,
+              //         genderType: 1,
+              //         colors: [1, 2, 3],
+              //       ),
+              //     ),
               child: Text(
                 data,
               ),
@@ -206,22 +272,4 @@ class FilterPage extends HookWidget {
       ),
     );
   }
-}
-
-enum Gender {
-  Man,
-  Woman,
-  Unisex,
-}
-
-enum SortOptions {
-  Recent("Most recent"),
-  Price("Lowest price"),
-  Review("Highest reviews"),
-  Gender("Gender"),
-  Color("Color"),
-  ;
-
-  final String label;
-  const SortOptions(this.label);
 }

@@ -15,7 +15,7 @@ class OrderSummaryPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
+                const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -38,18 +38,18 @@ class OrderSummaryPage extends StatelessWidget {
                 ),
                 Column(
                   children: [
-                    Text(
+                    const Text(
                       "Order Detail",
                     ),
                     Column(
                       children: List.generate(
                         5,
-                        (index) => OrderTile(),
+                        (index) => const OrderTile(),
                       ),
                     )
                   ],
                 ),
-                Column(
+                const Column(
                   children: [
                     Text("Payment Detail"),
                     KeyValueTile(),
@@ -69,10 +69,12 @@ class OrderSummaryPage extends StatelessWidget {
 }
 
 class OrderTile extends StatelessWidget {
+  const OrderTile({super.key});
+
   @override
   Widget build(BuildContext context) {
-    final customDivider = Text(".");
-    return Column(
+    const customDivider = Text(".");
+    return const Column(
       children: [
         Text("Item name"),
         Row(
@@ -101,9 +103,11 @@ class OrderTile extends StatelessWidget {
 }
 
 class KeyValueTile extends StatelessWidget {
+  const KeyValueTile({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return const Row(
       children: [
         Text("SubTotal"),
         Text("\$0.00"),
