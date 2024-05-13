@@ -2,12 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:test_project/enums.dart';
 import 'package:test_project/res/res.dart';
-import 'package:test_project/style/style.dart';
 import 'package:test_project/util/util.dart';
-import 'package:test_project/widgets/custom_container.dart';
-import 'package:test_project/widgets/widgets.dart';
 
-import '../../domain/domain.dart';
 import '../presentation.dart';
 
 class HomePage extends HookWidget {
@@ -77,18 +73,18 @@ class HomePage extends HookWidget {
         style: context.displaySmall?.copyWith(
           fontWeight: FontWeight.w900,
           shadows: [
-            const Shadow(
-              color: AppPalette.kClrBlack,
+            Shadow(
+              color: context.onPrimary,
               blurRadius: 1.0,
-              offset: Offset(
+              offset: const Offset(
                 0.5,
                 0.5,
               ),
             ),
-            const Shadow(
-              color: AppPalette.kClrSliver,
+            Shadow(
+              color: context.onContainerColor,
               blurRadius: 2.0,
-              offset: Offset(
+              offset: const Offset(
                 .5,
                 2.5,
               ),
@@ -129,25 +125,25 @@ class HomePage extends HookWidget {
   }
 }
 
-class ProductCard extends StatelessWidget {
-  // ignore: unused_field
-  final Product _product;
+// class ProductCard extends StatelessWidget {
+//   // ignore: unused_field
+//   final Product _product;
 
-  const ProductCard({super.key, required Product product}) : _product = product;
+//   const ProductCard({super.key, required Product product}) : _product = product;
 
-  @override
-  Widget build(BuildContext context) {
-    return const GridTile(
-      header: CustomContainer(
-        child: CircleAvatar(),
-      ),
-      child: Column(
-        children: [
-          Text("name"),
-          Text("ratings"),
-          Text("price"),
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return const GridTile(
+//       header: CustomContainer(
+//         child: CircleAvatar(),
+//       ),
+//       child: Column(
+//         children: [
+//           Text("name"),
+//           Text("ratings"),
+//           Text("price"),
+//         ],
+//       ),
+//     );
+//   }
+// }

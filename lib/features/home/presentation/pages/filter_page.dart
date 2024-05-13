@@ -6,9 +6,12 @@ import 'package:fpdart/fpdart.dart';
 import 'package:test_project/enums.dart';
 import 'package:test_project/features/home/domain/domain.dart';
 import 'package:test_project/features/home/presentation/presentation.dart';
+import 'package:test_project/features/review/presentation/cubit/review_cubit.dart';
 import 'package:test_project/res/res.dart';
 import 'package:test_project/util/util.dart';
 import 'package:test_project/widgets/widgets.dart';
+
+import '../../../review/domain/domain.dart';
 
 class FilterPage extends HookWidget {
   const FilterPage({super.key});
@@ -232,36 +235,36 @@ class FilterPage extends HookWidget {
             leading: OutlinedButton(
               onPressed: () {
                 for (int i = 0; i < 10; i++) {
-                  context.read<ProductCubit>().insertProduct(
-                        Product(
-                          brandType: randomInt(0, 5).run(),
-                          colors: [1, 2, 3, 4],
-                          description: "description",
-                          genderType: randomInt(0, 3).run(),
-                          image: "assets/images/${i + 1}.png",
-                          id: i + 1,
-                          name: "Jordan 1 Retro High Tie Dye",
-                          price: randomInt(200, 2000).run().toDouble(),
-                          size: [44, 46, 48, 50],
-                          brandName: "Adidas",
-                          reviewsCount: randomInt(200, 2000).run(),
+                  context.read<ReviewCubit>().insertReview(
+                        Review(
+                          createdDate: DateTime.now(),
+                          productId: randomInt(1, 11).run(),
+                          rating: randomInt(1, 6).run().toDouble(),
+                          userId: randomInt(1, 5).run(),
+                          comment:
+                              "Noice ${i.hashCode.toStringAsExponential()}",
                         ),
                       );
                 }
+                // add 10 products
+                // for (int i = 0; i < 10; i++) {
+                //   context.read<ProductCubit>().insertProduct(
+                //         Product(
+                //           brandType: randomInt(0, 5).run(),
+                //           colors: [1, 2, 3, 4],
+                //           description: "description",
+                //           genderType: randomInt(0, 3).run(),
+                //           image: "assets/images/${i + 1}.png",
+                //           id: i + 1,
+                //           name: "Jordan 1 Retro High Tie Dye",
+                //           price: randomInt(200, 2000).run().toDouble(),
+                //           size: [44, 46, 48, 50],
+                //           brandName: "Adidas",
+                //           reviewsCount: randomInt(200, 2000).run(),
+                //         ),
+                //       );
+                // }
               },
-              //  => context.read<ProductCubit>().insertProduct(
-              //       const Product(
-              //         id: 1,
-              //         name: "test",
-              //         image: "image",
-              //         description: "description",
-              //         price: 1000,
-              //         size: [46, 48, 50],
-              //         brandType: 1,
-              //         genderType: 1,
-              //         colors: [1, 2, 3],
-              //       ),
-              //     ),
               child: Text(
                 data,
               ),

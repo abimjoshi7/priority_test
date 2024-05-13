@@ -23,7 +23,8 @@ mixin _$Review {
   int get userId => throw _privateConstructorUsedError;
   int get productId => throw _privateConstructorUsedError;
   double get rating => throw _privateConstructorUsedError;
-  String get comment => throw _privateConstructorUsedError;
+  String? get comment => throw _privateConstructorUsedError;
+  DateTime get createdDate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +36,12 @@ abstract class $ReviewCopyWith<$Res> {
   factory $ReviewCopyWith(Review value, $Res Function(Review) then) =
       _$ReviewCopyWithImpl<$Res, Review>;
   @useResult
-  $Res call({int userId, int productId, double rating, String comment});
+  $Res call(
+      {int userId,
+      int productId,
+      double rating,
+      String? comment,
+      DateTime createdDate});
 }
 
 /// @nodoc
@@ -54,7 +60,8 @@ class _$ReviewCopyWithImpl<$Res, $Val extends Review>
     Object? userId = null,
     Object? productId = null,
     Object? rating = null,
-    Object? comment = null,
+    Object? comment = freezed,
+    Object? createdDate = null,
   }) {
     return _then(_value.copyWith(
       userId: null == userId
@@ -69,10 +76,14 @@ class _$ReviewCopyWithImpl<$Res, $Val extends Review>
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double,
-      comment: null == comment
+      comment: freezed == comment
           ? _value.comment
           : comment // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      createdDate: null == createdDate
+          ? _value.createdDate
+          : createdDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 }
@@ -84,7 +95,12 @@ abstract class _$$ReviewImplCopyWith<$Res> implements $ReviewCopyWith<$Res> {
       __$$ReviewImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int userId, int productId, double rating, String comment});
+  $Res call(
+      {int userId,
+      int productId,
+      double rating,
+      String? comment,
+      DateTime createdDate});
 }
 
 /// @nodoc
@@ -101,7 +117,8 @@ class __$$ReviewImplCopyWithImpl<$Res>
     Object? userId = null,
     Object? productId = null,
     Object? rating = null,
-    Object? comment = null,
+    Object? comment = freezed,
+    Object? createdDate = null,
   }) {
     return _then(_$ReviewImpl(
       userId: null == userId
@@ -116,10 +133,14 @@ class __$$ReviewImplCopyWithImpl<$Res>
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double,
-      comment: null == comment
+      comment: freezed == comment
           ? _value.comment
           : comment // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      createdDate: null == createdDate
+          ? _value.createdDate
+          : createdDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -131,7 +152,8 @@ class _$ReviewImpl implements _Review {
       {required this.userId,
       required this.productId,
       required this.rating,
-      required this.comment});
+      this.comment,
+      required this.createdDate});
 
   factory _$ReviewImpl.fromJson(Map<String, dynamic> json) =>
       _$$ReviewImplFromJson(json);
@@ -143,11 +165,13 @@ class _$ReviewImpl implements _Review {
   @override
   final double rating;
   @override
-  final String comment;
+  final String? comment;
+  @override
+  final DateTime createdDate;
 
   @override
   String toString() {
-    return 'Review(userId: $userId, productId: $productId, rating: $rating, comment: $comment)';
+    return 'Review(userId: $userId, productId: $productId, rating: $rating, comment: $comment, createdDate: $createdDate)';
   }
 
   @override
@@ -159,13 +183,15 @@ class _$ReviewImpl implements _Review {
             (identical(other.productId, productId) ||
                 other.productId == productId) &&
             (identical(other.rating, rating) || other.rating == rating) &&
-            (identical(other.comment, comment) || other.comment == comment));
+            (identical(other.comment, comment) || other.comment == comment) &&
+            (identical(other.createdDate, createdDate) ||
+                other.createdDate == createdDate));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, userId, productId, rating, comment);
+      Object.hash(runtimeType, userId, productId, rating, comment, createdDate);
 
   @JsonKey(ignore: true)
   @override
@@ -186,7 +212,8 @@ abstract class _Review implements Review {
       {required final int userId,
       required final int productId,
       required final double rating,
-      required final String comment}) = _$ReviewImpl;
+      final String? comment,
+      required final DateTime createdDate}) = _$ReviewImpl;
 
   factory _Review.fromJson(Map<String, dynamic> json) = _$ReviewImpl.fromJson;
 
@@ -197,7 +224,9 @@ abstract class _Review implements Review {
   @override
   double get rating;
   @override
-  String get comment;
+  String? get comment;
+  @override
+  DateTime get createdDate;
   @override
   @JsonKey(ignore: true)
   _$$ReviewImplCopyWith<_$ReviewImpl> get copyWith =>

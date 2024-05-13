@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_project/features/home/presentation/cubit/product_cubit.dart';
+import 'package:test_project/features/review/presentation/cubit/review_cubit.dart';
 import 'package:test_project/firebase_options.dart';
 
 import 'di.dart';
@@ -19,6 +20,9 @@ void main() async {
       providers: [
         BlocProvider(
           create: (context) => locator<ProductCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => locator<ReviewCubit>(),
         ),
       ],
       child: const MyApp(),

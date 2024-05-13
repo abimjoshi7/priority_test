@@ -88,10 +88,26 @@ class ProductsGridView extends HookWidget {
                             ),
                           ),
                         ),
-                        Text(productList[index].name),
-                        Text(productList[index].reviewsCount.toString()),
+                        Text(productList[index].name,
+                            style: context.labelLarge),
+                        Row(
+                          children: [
+                            SvgPicture.asset(DrawableRes.kIconStars),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 4,
+                              ),
+                              child: Text(
+                                "4.5",
+                                style: context.titleLarge,
+                              ),
+                            ),
+                            Text("(${productList[index].reviewsCount})"),
+                          ],
+                        ),
                         Text(
-                          productList[index].price.toString(),
+                          "\$${productList[index].price}",
+                          style: context.headlineSmall,
                         ),
                       ],
                     ),
