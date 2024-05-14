@@ -22,7 +22,8 @@ CartItem _$CartItemFromJson(Map<String, dynamic> json) {
 mixin _$CartItem {
   Product get product => throw _privateConstructorUsedError;
   int get quantity => throw _privateConstructorUsedError;
-  String get size => throw _privateConstructorUsedError;
+  int get size => throw _privateConstructorUsedError;
+  int get colorType => throw _privateConstructorUsedError;
   String get color => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -36,7 +37,8 @@ abstract class $CartItemCopyWith<$Res> {
   factory $CartItemCopyWith(CartItem value, $Res Function(CartItem) then) =
       _$CartItemCopyWithImpl<$Res, CartItem>;
   @useResult
-  $Res call({Product product, int quantity, String size, String color});
+  $Res call(
+      {Product product, int quantity, int size, int colorType, String color});
 
   $ProductCopyWith<$Res> get product;
 }
@@ -57,6 +59,7 @@ class _$CartItemCopyWithImpl<$Res, $Val extends CartItem>
     Object? product = null,
     Object? quantity = null,
     Object? size = null,
+    Object? colorType = null,
     Object? color = null,
   }) {
     return _then(_value.copyWith(
@@ -71,7 +74,11 @@ class _$CartItemCopyWithImpl<$Res, $Val extends CartItem>
       size: null == size
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
+      colorType: null == colorType
+          ? _value.colorType
+          : colorType // ignore: cast_nullable_to_non_nullable
+              as int,
       color: null == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
@@ -96,7 +103,8 @@ abstract class _$$CartItemImplCopyWith<$Res>
       __$$CartItemImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Product product, int quantity, String size, String color});
+  $Res call(
+      {Product product, int quantity, int size, int colorType, String color});
 
   @override
   $ProductCopyWith<$Res> get product;
@@ -116,6 +124,7 @@ class __$$CartItemImplCopyWithImpl<$Res>
     Object? product = null,
     Object? quantity = null,
     Object? size = null,
+    Object? colorType = null,
     Object? color = null,
   }) {
     return _then(_$CartItemImpl(
@@ -130,7 +139,11 @@ class __$$CartItemImplCopyWithImpl<$Res>
       size: null == size
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
+      colorType: null == colorType
+          ? _value.colorType
+          : colorType // ignore: cast_nullable_to_non_nullable
+              as int,
       color: null == color
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
@@ -146,6 +159,7 @@ class _$CartItemImpl implements _CartItem {
       {required this.product,
       required this.quantity,
       required this.size,
+      required this.colorType,
       required this.color});
 
   factory _$CartItemImpl.fromJson(Map<String, dynamic> json) =>
@@ -156,13 +170,15 @@ class _$CartItemImpl implements _CartItem {
   @override
   final int quantity;
   @override
-  final String size;
+  final int size;
+  @override
+  final int colorType;
   @override
   final String color;
 
   @override
   String toString() {
-    return 'CartItem(product: $product, quantity: $quantity, size: $size, color: $color)';
+    return 'CartItem(product: $product, quantity: $quantity, size: $size, colorType: $colorType, color: $color)';
   }
 
   @override
@@ -174,12 +190,15 @@ class _$CartItemImpl implements _CartItem {
             (identical(other.quantity, quantity) ||
                 other.quantity == quantity) &&
             (identical(other.size, size) || other.size == size) &&
+            (identical(other.colorType, colorType) ||
+                other.colorType == colorType) &&
             (identical(other.color, color) || other.color == color));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, product, quantity, size, color);
+  int get hashCode =>
+      Object.hash(runtimeType, product, quantity, size, colorType, color);
 
   @JsonKey(ignore: true)
   @override
@@ -199,7 +218,8 @@ abstract class _CartItem implements CartItem {
   const factory _CartItem(
       {required final Product product,
       required final int quantity,
-      required final String size,
+      required final int size,
+      required final int colorType,
       required final String color}) = _$CartItemImpl;
 
   factory _CartItem.fromJson(Map<String, dynamic> json) =
@@ -210,7 +230,9 @@ abstract class _CartItem implements CartItem {
   @override
   int get quantity;
   @override
-  String get size;
+  int get size;
+  @override
+  int get colorType;
   @override
   String get color;
   @override

@@ -13,7 +13,7 @@ _$ProductImpl _$$ProductImplFromJson(Map<String, dynamic> json) =>
       image: json['image'] as String,
       description: json['description'] as String,
       price: (json['price'] as num).toDouble(),
-      size: (json['size'] as List<dynamic>)
+      sizes: (json['sizes'] as List<dynamic>)
           .map((e) => (e as num).toInt())
           .toList(),
       brandType: (json['brandType'] as num).toInt(),
@@ -23,8 +23,7 @@ _$ProductImpl _$$ProductImplFromJson(Map<String, dynamic> json) =>
       colors: (json['colors'] as List<dynamic>)
           .map((e) => (e as num).toInt())
           .toList(),
-      reviewsCount: (json['reviewsCount'] as num?)?.toInt() ?? 0,
-      avgRating: (json['avgRating'] as num?)?.toDouble() ?? 0.0,
+      avgRating: (json['avgRating'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$$ProductImplToJson(_$ProductImpl instance) =>
@@ -34,12 +33,11 @@ Map<String, dynamic> _$$ProductImplToJson(_$ProductImpl instance) =>
       'image': instance.image,
       'description': instance.description,
       'price': instance.price,
-      'size': instance.size,
+      'sizes': instance.sizes,
       'brandType': instance.brandType,
       'brandName': instance.brandName,
       'genderType': instance.genderType,
       'genderName': instance.genderName,
       'colors': instance.colors,
-      'reviewsCount': instance.reviewsCount,
       'avgRating': instance.avgRating,
     };

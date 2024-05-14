@@ -10,7 +10,8 @@ class CartItem with _$CartItem {
   const factory CartItem({
     required Product product,
     required int quantity,
-    required String size,
+    required int size,
+    required int colorType,
     required String color,
   }) = _CartItem;
 

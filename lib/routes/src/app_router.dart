@@ -15,7 +15,7 @@ mixin AppRouter {
           case RouteRes.kFilterPage:
             return const FilterPage();
           case RouteRes.kReviewPage:
-            return const ReviewPage();
+            return ReviewPage(productId: routeSettings.arguments as int);
           case RouteRes.kCartPage:
             return const CartPage(
               products: [],

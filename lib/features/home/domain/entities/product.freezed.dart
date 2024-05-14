@@ -25,13 +25,12 @@ mixin _$Product {
   String get image => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
-  List<int> get size => throw _privateConstructorUsedError;
+  List<int> get sizes => throw _privateConstructorUsedError;
   int get brandType => throw _privateConstructorUsedError;
   String? get brandName => throw _privateConstructorUsedError;
   int get genderType => throw _privateConstructorUsedError;
   String? get genderName => throw _privateConstructorUsedError;
   List<int> get colors => throw _privateConstructorUsedError;
-  int get reviewsCount => throw _privateConstructorUsedError;
   double get avgRating => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -50,13 +49,12 @@ abstract class $ProductCopyWith<$Res> {
       String image,
       String description,
       double price,
-      List<int> size,
+      List<int> sizes,
       int brandType,
       String? brandName,
       int genderType,
       String? genderName,
       List<int> colors,
-      int reviewsCount,
       double avgRating});
 }
 
@@ -78,13 +76,12 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
     Object? image = null,
     Object? description = null,
     Object? price = null,
-    Object? size = null,
+    Object? sizes = null,
     Object? brandType = null,
     Object? brandName = freezed,
     Object? genderType = null,
     Object? genderName = freezed,
     Object? colors = null,
-    Object? reviewsCount = null,
     Object? avgRating = null,
   }) {
     return _then(_value.copyWith(
@@ -108,9 +105,9 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as double,
-      size: null == size
-          ? _value.size
-          : size // ignore: cast_nullable_to_non_nullable
+      sizes: null == sizes
+          ? _value.sizes
+          : sizes // ignore: cast_nullable_to_non_nullable
               as List<int>,
       brandType: null == brandType
           ? _value.brandType
@@ -132,10 +129,6 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
           ? _value.colors
           : colors // ignore: cast_nullable_to_non_nullable
               as List<int>,
-      reviewsCount: null == reviewsCount
-          ? _value.reviewsCount
-          : reviewsCount // ignore: cast_nullable_to_non_nullable
-              as int,
       avgRating: null == avgRating
           ? _value.avgRating
           : avgRating // ignore: cast_nullable_to_non_nullable
@@ -157,13 +150,12 @@ abstract class _$$ProductImplCopyWith<$Res> implements $ProductCopyWith<$Res> {
       String image,
       String description,
       double price,
-      List<int> size,
+      List<int> sizes,
       int brandType,
       String? brandName,
       int genderType,
       String? genderName,
       List<int> colors,
-      int reviewsCount,
       double avgRating});
 }
 
@@ -183,13 +175,12 @@ class __$$ProductImplCopyWithImpl<$Res>
     Object? image = null,
     Object? description = null,
     Object? price = null,
-    Object? size = null,
+    Object? sizes = null,
     Object? brandType = null,
     Object? brandName = freezed,
     Object? genderType = null,
     Object? genderName = freezed,
     Object? colors = null,
-    Object? reviewsCount = null,
     Object? avgRating = null,
   }) {
     return _then(_$ProductImpl(
@@ -213,9 +204,9 @@ class __$$ProductImplCopyWithImpl<$Res>
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
               as double,
-      size: null == size
-          ? _value._size
-          : size // ignore: cast_nullable_to_non_nullable
+      sizes: null == sizes
+          ? _value._sizes
+          : sizes // ignore: cast_nullable_to_non_nullable
               as List<int>,
       brandType: null == brandType
           ? _value.brandType
@@ -237,10 +228,6 @@ class __$$ProductImplCopyWithImpl<$Res>
           ? _value._colors
           : colors // ignore: cast_nullable_to_non_nullable
               as List<int>,
-      reviewsCount: null == reviewsCount
-          ? _value.reviewsCount
-          : reviewsCount // ignore: cast_nullable_to_non_nullable
-              as int,
       avgRating: null == avgRating
           ? _value.avgRating
           : avgRating // ignore: cast_nullable_to_non_nullable
@@ -258,15 +245,14 @@ class _$ProductImpl implements _Product {
       required this.image,
       required this.description,
       required this.price,
-      required final List<int> size,
+      required final List<int> sizes,
       required this.brandType,
       this.brandName,
       required this.genderType,
       this.genderName,
       required final List<int> colors,
-      this.reviewsCount = 0,
-      this.avgRating = 0.0})
-      : _size = size,
+      required this.avgRating})
+      : _sizes = sizes,
         _colors = colors;
 
   factory _$ProductImpl.fromJson(Map<String, dynamic> json) =>
@@ -282,12 +268,12 @@ class _$ProductImpl implements _Product {
   final String description;
   @override
   final double price;
-  final List<int> _size;
+  final List<int> _sizes;
   @override
-  List<int> get size {
-    if (_size is EqualUnmodifiableListView) return _size;
+  List<int> get sizes {
+    if (_sizes is EqualUnmodifiableListView) return _sizes;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_size);
+    return EqualUnmodifiableListView(_sizes);
   }
 
   @override
@@ -307,15 +293,11 @@ class _$ProductImpl implements _Product {
   }
 
   @override
-  @JsonKey()
-  final int reviewsCount;
-  @override
-  @JsonKey()
   final double avgRating;
 
   @override
   String toString() {
-    return 'Product(id: $id, name: $name, image: $image, description: $description, price: $price, size: $size, brandType: $brandType, brandName: $brandName, genderType: $genderType, genderName: $genderName, colors: $colors, reviewsCount: $reviewsCount, avgRating: $avgRating)';
+    return 'Product(id: $id, name: $name, image: $image, description: $description, price: $price, sizes: $sizes, brandType: $brandType, brandName: $brandName, genderType: $genderType, genderName: $genderName, colors: $colors, avgRating: $avgRating)';
   }
 
   @override
@@ -329,7 +311,7 @@ class _$ProductImpl implements _Product {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.price, price) || other.price == price) &&
-            const DeepCollectionEquality().equals(other._size, _size) &&
+            const DeepCollectionEquality().equals(other._sizes, _sizes) &&
             (identical(other.brandType, brandType) ||
                 other.brandType == brandType) &&
             (identical(other.brandName, brandName) ||
@@ -339,8 +321,6 @@ class _$ProductImpl implements _Product {
             (identical(other.genderName, genderName) ||
                 other.genderName == genderName) &&
             const DeepCollectionEquality().equals(other._colors, _colors) &&
-            (identical(other.reviewsCount, reviewsCount) ||
-                other.reviewsCount == reviewsCount) &&
             (identical(other.avgRating, avgRating) ||
                 other.avgRating == avgRating));
   }
@@ -354,13 +334,12 @@ class _$ProductImpl implements _Product {
       image,
       description,
       price,
-      const DeepCollectionEquality().hash(_size),
+      const DeepCollectionEquality().hash(_sizes),
       brandType,
       brandName,
       genderType,
       genderName,
       const DeepCollectionEquality().hash(_colors),
-      reviewsCount,
       avgRating);
 
   @JsonKey(ignore: true)
@@ -384,14 +363,13 @@ abstract class _Product implements Product {
       required final String image,
       required final String description,
       required final double price,
-      required final List<int> size,
+      required final List<int> sizes,
       required final int brandType,
       final String? brandName,
       required final int genderType,
       final String? genderName,
       required final List<int> colors,
-      final int reviewsCount,
-      final double avgRating}) = _$ProductImpl;
+      required final double avgRating}) = _$ProductImpl;
 
   factory _Product.fromJson(Map<String, dynamic> json) = _$ProductImpl.fromJson;
 
@@ -406,7 +384,7 @@ abstract class _Product implements Product {
   @override
   double get price;
   @override
-  List<int> get size;
+  List<int> get sizes;
   @override
   int get brandType;
   @override
@@ -417,8 +395,6 @@ abstract class _Product implements Product {
   String? get genderName;
   @override
   List<int> get colors;
-  @override
-  int get reviewsCount;
   @override
   double get avgRating;
   @override

@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:test_project/di.dart';
 
 import '../../domain/domain.dart';
 
@@ -20,7 +22,12 @@ class ProductCubit extends Cubit<ProductState> {
     emit(
       const ProductState.loading(),
     );
-    return addProduct.call(product).then(
+    final updateProduct = await getAvgReview(product.id).then(
+      (value) => product = product.copyWith(
+        avgRating: value.toDouble(),
+      ),
+    );
+    return addProduct.call(updateProduct).then(
           (value) => switch (value) {
             Right<Exception, int>() => fetchProducts(),
             Left<Exception, int>(:final value) => emit(
@@ -32,7 +39,9 @@ class ProductCubit extends Cubit<ProductState> {
         );
   }
 
-  Future<void> fetchProducts() async {
+  Future<void> fetchProducts([
+    int? productId,
+  ]) async {
     emit(
       const ProductState.loading(),
     );
@@ -40,7 +49,7 @@ class ProductCubit extends Cubit<ProductState> {
           (value) => switch (value) {
             Right<Exception, List<Product>>(:final value) => emit(
                 ProductState.success(
-                  value,
+                  products: value,
                 ),
               ),
             Left<Exception, List<Product>>(:final value) => emit(
@@ -60,39 +69,55 @@ class ProductCubit extends Cubit<ProductState> {
   }
 
   Product fetchProduct(int id) {
-    final products = getProductList();
-    return products.firstWhere((element) => element.id == id);
-  }
-
-  void filterBrand(int index) async {
     try {
-      await fetchProducts();
-      if (index != 0) {
-        var newList = getProductList()
-            .where((element) => element.brandType == index)
-            .toList();
-        emit(
-          ProductState.success(
-            newList,
-          ),
-        );
-      }
+      final products = getProductList();
+      return products.firstWhere((element) => element.id == id);
     } catch (e) {
-      emit(
-        ProductState.failure(
-          Exception(e.toString()),
-        ),
-      );
+      return Product.d();
     }
   }
 
-  Future<int> getItemCount([int? brandType]) async => fetchProducts().then(
-        (_) {
-          final list = getProductList()
-              .where((element) =>
-                  brandType == null ? true : element.brandType == brandType)
-              .toList();
-          return list.length;
+  List<Product> filterBrand(int index) {
+    try {
+      getProductList();
+      if (index != 0) {
+        var newList = List<Product>.from(getProductList()
+            .where((element) => element.brandType == index)
+            .toList());
+        return newList;
+      } else {
+        return getProductList();
+      }
+    } catch (e) {
+      return [];
+    }
+  }
+
+  int getItemCount([int? brandType]) {
+    try {
+      final newList = getProductList()
+          .where((element) =>
+              brandType == null ? true : element.brandType == brandType)
+          .toList();
+      return newList.length;
+    } catch (e) {
+      return 0;
+    }
+  }
+
+  Future<num> getAvgReview(int productId) async {
+    try {
+      return await locator<SupabaseClient>().functions.invoke(
+        "compute_average_review",
+        method: HttpMethod.post,
+        body: {
+          "productId": productId,
         },
+      ).then(
+        (value) => value.data["data"] as num,
       );
+    } catch (e) {
+      return 0.0;
+    }
+  }
 }

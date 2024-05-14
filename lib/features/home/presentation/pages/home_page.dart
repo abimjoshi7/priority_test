@@ -124,26 +124,3 @@ class HomePage extends HookWidget {
     );
   }
 }
-
-// class ProductCard extends StatelessWidget {
-//   // ignore: unused_field
-//   final Product _product;
-
-//   const ProductCard({super.key, required Product product}) : _product = product;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return const GridTile(
-//       header: CustomContainer(
-//         child: CircleAvatar(),
-//       ),
-//       child: Column(
-//         children: [
-//           Text("name"),
-//           Text("ratings"),
-//           Text("price"),
-//         ],
-//       ),
-//     );
-//   }
-// }

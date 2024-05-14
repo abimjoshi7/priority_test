@@ -2,12 +2,12 @@ import { initializeApp, FirebaseOptions } from "https://www.gstatic.com/firebase
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
 const firebaseConfig: FirebaseOptions = {
-  apiKey: "AIzaSyDBIBhjXZTiaJqeI3PlxhYKN7-3_i2wKJA",
-  authDomain: "prioritytest-dbaea.firebaseapp.com",
-  projectId: "prioritytest-dbaea",
-  storageBucket: "prioritytest-dbaea.appspot.com",
-  messagingSenderId: "617595951667",
-  appId: "1:617595951667:web:5b62d9cef3a708ef2a2146"
+  apiKey: 'AIzaSyCN8bCwANZ2npmXOzfNWrkWs9j-7-K60Og',
+  appId: '1:510847203986:web:9d11dc43cf64b686b3444b',
+  messagingSenderId: '510847203986',
+  projectId: 'prioritytest-4aba4',
+  authDomain: 'prioritytest-4aba4.firebaseapp.com',
+  storageBucket: 'prioritytest-4aba4.appspot.com',
 };
 
 // Initialize Firebase

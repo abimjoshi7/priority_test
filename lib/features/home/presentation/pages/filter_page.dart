@@ -4,14 +4,14 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:test_project/enums.dart';
-import 'package:test_project/features/home/domain/domain.dart';
 import 'package:test_project/features/home/presentation/presentation.dart';
+import 'package:test_project/features/review/domain/entities/review.dart';
 import 'package:test_project/features/review/presentation/cubit/review_cubit.dart';
 import 'package:test_project/res/res.dart';
 import 'package:test_project/util/util.dart';
 import 'package:test_project/widgets/widgets.dart';
 
-import '../../../review/domain/domain.dart';
+import '../../domain/domain.dart';
 
 class FilterPage extends HookWidget {
   const FilterPage({super.key});
@@ -31,12 +31,6 @@ class FilterPage extends HookWidget {
       ),
     );
 
-    var label2 = "Gender";
-    var label3 = "Sort By";
-    var label4 = "Price Range";
-    var label5 = "Color";
-    var btnText = "Apply";
-    var data = "Reset";
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -91,22 +85,15 @@ class FilterPage extends HookWidget {
                                             )
                                         ],
                                       ),
-                                      // CustomContainer(
-                                      //   boxShape: BoxShape.circle,
-                                      //   child: ,
-                                      // ),
                                       Text(
                                         e.name,
                                         style: context.titleLarge,
                                       ),
-                                      FutureBuilder<int>(
-                                        initialData: 0,
-                                        future: context
+                                      Text(
+                                        context
                                             .read<ProductCubit>()
-                                            .getItemCount(e.brandType),
-                                        builder: (context, snapshot) => Text(
-                                          (snapshot.data ?? 0).toString(),
-                                        ),
+                                            .getItemCount()
+                                            .toString(),
                                       ),
                                     ],
                                   ),
@@ -118,7 +105,7 @@ class FilterPage extends HookWidget {
                     ),
                   ),
                   CustomSection(
-                    label: label4,
+                    label: StringRes.kPriceRange,
                     child: RangeSlider(
                       values: rangeValues.value,
                       onChanged: (value) => rangeValues.value = value,
@@ -129,7 +116,7 @@ class FilterPage extends HookWidget {
                     ),
                   ),
                   CustomSection(
-                    label: label3,
+                    label: StringRes.kSortBy,
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
@@ -156,7 +143,7 @@ class FilterPage extends HookWidget {
                     ),
                   ),
                   CustomSection(
-                    label: label2,
+                    label: StringRes.kGender,
                     child: Row(
                       children: Gender.values
                           .map(
@@ -181,7 +168,7 @@ class FilterPage extends HookWidget {
                     ),
                   ),
                   CustomSection(
-                    label: label5,
+                    label: StringRes.kColor,
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
@@ -231,42 +218,47 @@ class FilterPage extends HookWidget {
             ),
           ),
           Footer(
-            btnText: btnText,
+            btnText: StringRes.kReset,
             leading: OutlinedButton(
               onPressed: () {
-                for (int i = 0; i < 10; i++) {
-                  context.read<ReviewCubit>().insertReview(
-                        Review(
-                          createdDate: DateTime.now(),
-                          productId: randomInt(1, 11).run(),
-                          rating: randomInt(1, 6).run().toDouble(),
-                          userId: randomInt(1, 5).run(),
-                          comment:
-                              "Noice ${i.hashCode.toStringAsExponential()}",
-                        ),
-                      );
-                }
-                // add 10 products
-                // for (int i = 0; i < 10; i++) {
-                //   context.read<ProductCubit>().insertProduct(
-                //         Product(
-                //           brandType: randomInt(0, 5).run(),
-                //           colors: [1, 2, 3, 4],
-                //           description: "description",
-                //           genderType: randomInt(0, 3).run(),
-                //           image: "assets/images/${i + 1}.png",
-                //           id: i + 1,
-                //           name: "Jordan 1 Retro High Tie Dye",
-                //           price: randomInt(200, 2000).run().toDouble(),
-                //           size: [44, 46, 48, 50],
-                //           brandName: "Adidas",
-                //           reviewsCount: randomInt(200, 2000).run(),
+                // for (int i = 0; i < 25; i++) {
+                //   context.read<ReviewCubit>().insertReview(
+                //         Review(
+                //           createdDate: DateTime.now(),
+                //           productId: randomInt(1, 11).run(),
+                //           rating: randomInt(1, 6).run().toDouble(),
+                //           userId: randomInt(1, 5).run(),
+                //           comment:
+                //               "Noice great product. I love the fit. I would recommend this product to anyone. I love the fit. I would recommend this product to anyone. I love the fit. I would recommend this product to anyone.",
                 //         ),
                 //       );
                 // }
+                // add 10 products
+                for (int i = 0; i < 10; i++) {
+                  var brandType = randomInt(1, 6).run();
+                  context.read<ProductCubit>().insertProduct(
+                        Product(
+                          brandType: brandType,
+                          colors: [1, 2, 3, 4],
+                          description:
+                              "Engineered to crush any movement-based workout, these On sneakers enhance the label's original Cloud sneaker with cutting edge technologies for a pair.",
+                          genderType: randomInt(0, 3).run(),
+                          image: "assets/images/${i + 1}.png",
+                          id: i + 1,
+                          name: "Jordan 1 Retro High Tie Dye",
+                          price: randomInt(200, 2000).run().toDouble(),
+                          sizes: [44, 46, 48, 50],
+                          brandName: ShoesBrands.values
+                              .firstWhere(
+                                  (element) => element.brandType == brandType)
+                              .name,
+                          avgRating: 0.0,
+                        ),
+                      );
+                }
               },
-              child: Text(
-                data,
+              child: const Text(
+                StringRes.kAddToCart,
               ),
             ),
             onPressed: () {},

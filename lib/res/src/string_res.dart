@@ -14,4 +14,12 @@ class StringRes {
   static const kDescription = "Description";
   static const kReviews = "Reviews";
   static const kSize = "Size";
+  static const kGender = "Gender";
+  static const kSortBy = "Sort By";
+  static const kPriceRange = "Price Range";
+  static const kColor = "Color";
+  static const kApply = "Apply";
+  static const kReset = "Reset";
+  static const kSeeAllReview = "See all review";
+  static const kQuantity = "Quantity";
 }

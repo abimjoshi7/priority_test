@@ -22,4 +22,7 @@ class ImageRes {
   static String get kProduct8 => 'assets/images/8.png';
   static String get kProduct9 => 'assets/images/9.png';
   static String get kProduct10 => 'assets/images/10.png';
+
+  // Misc
+  static String get kEmptyVector => "assets/images/empty.png";
 }

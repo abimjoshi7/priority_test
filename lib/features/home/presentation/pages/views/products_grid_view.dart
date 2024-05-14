@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:test_project/enums.dart';
+import 'package:test_project/features/review/presentation/cubit/review_cubit.dart';
 import 'package:test_project/res/res.dart';
 import 'package:test_project/routes/routes.dart';
 import 'package:test_project/util/util.dart';
@@ -11,29 +13,27 @@ import '../../presentation.dart';
 
 class ProductsGridView extends HookWidget {
   const ProductsGridView(
-    this.index, {
+    this.indexNumber, {
     super.key,
   });
 
-  final int index;
+  final int indexNumber;
 
   @override
   Widget build(BuildContext context) {
-    useEffect(
-      () {
-        context.read<ProductCubit>().filterBrand(
-              index,
-            );
-        return;
-      },
-      const [],
-    );
-
     return BlocBuilder<ProductCubit, ProductState>(
       builder: (context, state) {
         return state.maybeMap(
+          failure: (value) {
+            var s = "Something went wrong. Please try again.";
+            return Center(
+              child: Text(value.exception?.toString() ?? s),
+            );
+          },
           success: (value) {
-            final productList = value.products;
+            final productList = context.read<ProductCubit>().filterBrand(
+                  indexNumber,
+                );
             return Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 24,
@@ -70,7 +70,13 @@ class ProductsGridView extends HookWidget {
                                         left: 16,
                                       ),
                                       child: SvgPicture.asset(
-                                        DrawableRes.kLogoAdidas,
+                                        ShoesBrands.values
+                                            .firstWhere(
+                                              (element) =>
+                                                  element.brandType ==
+                                                  productList[index].brandType,
+                                            )
+                                            .icon,
                                         colorFilter: ColorFilter.mode(
                                           context.onContainerColor,
                                           BlendMode.srcIn,
@@ -98,11 +104,18 @@ class ProductsGridView extends HookWidget {
                                 horizontal: 4,
                               ),
                               child: Text(
-                                "4.5",
+                                productList[index].avgRating.toStringAsFixed(1),
                                 style: context.titleLarge,
                               ),
                             ),
-                            Text("(${productList[index].reviewsCount})"),
+                            BlocBuilder<ReviewCubit, ReviewState>(
+                              builder: (context, state) {
+                                return Text(
+                                    "(${context.read<ReviewCubit>().getReviewCount(
+                                          productList[index].id,
+                                        )})");
+                              },
+                            ),
                           ],
                         ),
                         Text(
@@ -113,9 +126,6 @@ class ProductsGridView extends HookWidget {
                     ),
                   ),
                 ),
-                // ProductCard(
-                //   product: products[index],
-                // ),
               ),
             );
           },

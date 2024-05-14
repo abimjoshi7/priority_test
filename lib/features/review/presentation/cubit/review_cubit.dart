@@ -23,9 +23,7 @@ class ReviewCubit extends Cubit<ReviewState> {
     return getReviews.call(unit).then(
           (value) => switch (value) {
             Right<Exception, List<Review>>(:final value) => emit(
-                ReviewState.success(
-                  value,
-                ),
+                ReviewState.success(value),
               ),
             Left<Exception, List<Review>>(:final value) => emit(
                 ReviewState.failure(
@@ -52,47 +50,43 @@ class ReviewCubit extends Cubit<ReviewState> {
         );
   }
 
-  List<Review> getReviewList() {
+  List<Review> getReviewList([int? productId]) {
     return state.maybeMap(
-      success: (value) => value.reviews,
-      orElse: () => [],
+      success: (value) => value.reviews
+          .where(
+            (element) =>
+                productId == null ? true : element.productId == productId,
+          )
+          .toList(),
+      orElse: () => <Review>[],
     );
   }
 
-  // Product fetchProduct(int id) {
-  //   final products = getProductList();
-  //   return products.firstWhere((element) => element.id == id);
-  // }
+  int getReviewCount(int productId) {
+    try {
+      final list = getReviewList();
+      return list
+          .where((element) => element.productId == productId)
+          .toList()
+          .length;
+    } catch (e) {
+      return 0;
+    }
+  }
 
-  // void filterBrand(int index) async {
-  //   try {
-  //     await fetchProducts();
-  //     if (index != 0) {
-  //       var newList = getProductList()
-  //           .where((element) => element.brandType == index)
-  //           .toList();
-  //       emit(
-  //         ProductState.success(
-  //           newList,
-  //         ),
-  //       );
-  //     }
-  //   } catch (e) {
-  //     emit(
-  //       ProductState.failure(
-  //         Exception(e.toString()),
-  //       ),
-  //     );
-  //   }
-  // }
-
-  // Future<int> getItemCount([int? brandType]) async => fetchProducts().then(
-  //       (_) {
-  //         final list = getProductList()
-  //             .where((element) =>
-  //                 brandType == null ? true : element.brandType == brandType)
-  //             .toList();
-  //         return list.length;
-  //       },
-  //     );
+  List<Review> reviewStarsFiltered(int productId, int index) {
+    try {
+      if (index >= 1 && index <= 5) {
+        var newList = getReviewList()
+            .where((element) =>
+                element.productId == productId && element.rating == index)
+            .toList();
+        return newList;
+      } else {
+        return getReviewList(productId);
+      }
+    } catch (e) {
+      return getReviewList(productId);
+    }
+  }
 }

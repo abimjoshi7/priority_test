@@ -12,7 +12,9 @@ class ProductRepositoryImpl implements ProductRepository {
   @override
   Future<Either<Exception, int>> addT(Product t) async {
     try {
-      await _firestore.collection('products').add(t.toJson());
+      await _firestore.collection('products').add(
+            t.toJson(),
+          );
       return right(
         HttpStatus.ok,
       );

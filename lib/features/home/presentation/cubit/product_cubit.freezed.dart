@@ -337,7 +337,7 @@ class __$$SuccessImplCopyWithImpl<$Res>
     Object? products = null,
   }) {
     return _then(_$SuccessImpl(
-      null == products
+      products: null == products
           ? _value._products
           : products // ignore: cast_nullable_to_non_nullable
               as List<Product>,
@@ -348,7 +348,8 @@ class __$$SuccessImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SuccessImpl implements _Success {
-  const _$SuccessImpl(final List<Product> products) : _products = products;
+  const _$SuccessImpl({required final List<Product> products})
+      : _products = products;
 
   final List<Product> _products;
   @override
@@ -457,7 +458,8 @@ class _$SuccessImpl implements _Success {
 }
 
 abstract class _Success implements ProductState {
-  const factory _Success(final List<Product> products) = _$SuccessImpl;
+  const factory _Success({required final List<Product> products}) =
+      _$SuccessImpl;
 
   List<Product> get products;
   @JsonKey(ignore: true)

@@ -56,3 +56,15 @@ enum ShoeColor {
 
   const ShoeColor(this.color, this.colorType);
 }
+
+enum DummyUser {
+  A(1, "James Hetfield"),
+  B(2, "Kirk Hammett"),
+  C(3, "Lars Ulrich"),
+  D(4, "Dave Mustaine");
+
+  final int id;
+  final String name;
+
+  const DummyUser(this.id, this.name);
+}

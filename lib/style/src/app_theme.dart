@@ -39,13 +39,19 @@ class AppTheme {
         trackHeight: 1.5,
         thumbColor: AppPalette.kClrBlack,
         rangeThumbShape: CircleThumbShape(),
-        // valueIndicatorTextStyle: TextStyle(
-        //   color: AppPalette.kClrBlue,
-        // ),
-        // valueIndicatorColor: AppPalette.kClrBlue
-        // activeTickMarkColor: AppPalette.kClrBlack,
       ),
       scaffoldBackgroundColor: AppPalette.kClrWhite,
+      inputDecorationTheme: InputDecorationTheme(
+          focusedBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: AppPalette.kClrBlack,
+            ),
+          ),
+          floatingLabelStyle: AppTypography.textTheme.labelLarge,
+          labelStyle: AppTypography.textTheme.labelLarge,
+          activeIndicatorBorder: const BorderSide(
+            color: AppPalette.kClrBlack,
+          )),
       tabBarTheme: TabBarTheme(
         tabAlignment: TabAlignment.start,
         indicatorSize: TabBarIndicatorSize.label,

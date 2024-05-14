@@ -122,57 +122,42 @@ extension BuildContextEntension<T> on BuildContext {
   // * Popups
   /// Shows a modal bottom sheet with the given [child] widget.
   /// Additional customization options are available via named parameters.
-  // Future<T?> showBottomSheet(
-  //   Widget child, {
-  //   bool isScrollControlled = true,
-  //   bool useSafeArea = true,
-  //   Color? backgroundColor,
-  //   Color? barrierColor,
-  //   BoxConstraints? constraints,
-  //   bool? showDragHandle,
-  //   bool isDismissible = true,
-  //   bool enableDrag = false,
-  //   bool canPop = false,
-  // }) {
-  //   // Cache the MediaQuery data to avoid multiple lookups.
-  //   return showModalBottomSheet(
-  //     enableDrag: enableDrag,
-  //     showDragHandle: showDragHandle,
-  //     context: this,
-  //     isScrollControlled: isScrollControlled,
-  //     useSafeArea: useSafeArea,
-  //     barrierColor: barrierColor,
-  //     backgroundColor: backgroundColor,
-  //     isDismissible: isDismissible,
-  //     constraints: constraints,
-  //     builder: (context) {
-  //       return PopScope(
-  //         canPop: canPop,
-  //         onPopInvoked: (didPop) async {
-  //           if (didPop) return;
-
-  //           final bool? shouldPop = await showDialog(
-  //             context: context,
-  //             builder: (context) => ExitFormDialog(),
-  //           );
-
-  //           if (shouldPop ?? false) {
-  //             Navigator.pop(context);
-  //           }
-  //         },
-  //         child: Padding(
-  //           padding: EdgeInsets.only(
-  //             bottom: MediaQuery.viewInsetsOf(context).bottom,
-  //             left: 8,
-  //             right: 8,
-  //             top: 8,
-  //           ),
-  //           child: child,
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
+  Future<T?> showBottomSheet(
+    Widget child, {
+    bool isScrollControlled = true,
+    bool useSafeArea = true,
+    Color? backgroundColor,
+    Color? barrierColor,
+    BoxConstraints? constraints,
+    bool? showDragHandle,
+    bool isDismissible = true,
+    bool enableDrag = false,
+    bool canPop = false,
+  }) {
+    // Cache the MediaQuery data to avoid multiple lookups.
+    return showModalBottomSheet(
+      enableDrag: enableDrag,
+      showDragHandle: showDragHandle,
+      context: this,
+      isScrollControlled: isScrollControlled,
+      useSafeArea: useSafeArea,
+      barrierColor: barrierColor,
+      backgroundColor: backgroundColor,
+      isDismissible: isDismissible,
+      constraints: constraints,
+      builder: (context) {
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.viewInsetsOf(context).bottom,
+            left: 8,
+            right: 8,
+            top: 8,
+          ),
+          child: child,
+        );
+      },
+    );
+  }
 
   /// Shows a snack bar with the given [message].
   /// Additional customization options are available via named parameters.
@@ -228,4 +213,27 @@ extension BuildContextEntension<T> on BuildContext {
   //     ),
   //   );
   // }
+}
+
+extension DateComparison on DateTime {
+  String compareWithToday() {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final yesterday = today.subtract(const Duration(days: 1));
+    final aWeekAgo = today.subtract(const Duration(days: 7));
+
+    if (year == today.year && month == today.month && day == today.day) {
+      return "Today";
+    } else if (year == yesterday.year &&
+        month == yesterday.month &&
+        day == yesterday.day) {
+      return "Yesterday";
+    } else if (isAfter(aWeekAgo)) {
+      final differenceInDays = today.difference(this).inDays;
+      return "$differenceInDays days ago";
+    } else {
+      final differenceInWeeks = today.difference(this).inDays ~/ 7;
+      return "$differenceInWeeks weeks ago";
+    }
+  }
 }
