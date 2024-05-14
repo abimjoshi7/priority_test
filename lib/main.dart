@@ -7,6 +7,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:test_project/app_observer.dart';
 import 'package:test_project/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:test_project/features/home/presentation/cubit/product_cubit.dart';
+import 'package:test_project/features/payment/presentation/cubit/order_cubit.dart';
 import 'package:test_project/features/review/presentation/cubit/review_cubit.dart';
 import 'package:test_project/firebase_options.dart';
 
@@ -44,7 +45,7 @@ void main() async {
           create: (context) => locator<CartCubit>(),
         ),
         BlocProvider(
-          create: (context) => locator<CartCubit>(),
+          create: (context) => locator<OrderCubit>(),
         ),
       ],
       child: const MyApp(),

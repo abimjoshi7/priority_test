@@ -12,6 +12,9 @@ class CartItem with _$CartItem {
     required int size,
     required int colorType,
     required String color,
+    required String image,
+    required String brandName,
+    required double price,
     required double total,
   }) = _CartItem;
 

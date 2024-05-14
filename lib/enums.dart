@@ -68,3 +68,26 @@ enum DummyUser {
 
   const DummyUser(this.id, this.name);
 }
+
+enum PaymentMethod {
+  Cash("Cash"),
+  Card("Credit Card"),
+  Online1("Paypal"),
+  Online2("Stripe");
+
+  final String label;
+
+  const PaymentMethod(this.label);
+}
+
+enum Location {
+  NewYork("New York, USA"),
+  London("London, UK"),
+  Paris("Paris, France"),
+  Milan("Milan, Italy"),
+  Tokyo("Tokyo, Japan");
+
+  final String label;
+
+  const Location(this.label);
+}

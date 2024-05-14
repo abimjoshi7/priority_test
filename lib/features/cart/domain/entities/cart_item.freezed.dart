@@ -26,6 +26,9 @@ mixin _$CartItem {
   int get size => throw _privateConstructorUsedError;
   int get colorType => throw _privateConstructorUsedError;
   String get color => throw _privateConstructorUsedError;
+  String get image => throw _privateConstructorUsedError;
+  String get brandName => throw _privateConstructorUsedError;
+  double get price => throw _privateConstructorUsedError;
   double get total => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -46,6 +49,9 @@ abstract class $CartItemCopyWith<$Res> {
       int size,
       int colorType,
       String color,
+      String image,
+      String brandName,
+      double price,
       double total});
 }
 
@@ -68,6 +74,9 @@ class _$CartItemCopyWithImpl<$Res, $Val extends CartItem>
     Object? size = null,
     Object? colorType = null,
     Object? color = null,
+    Object? image = null,
+    Object? brandName = null,
+    Object? price = null,
     Object? total = null,
   }) {
     return _then(_value.copyWith(
@@ -95,6 +104,18 @@ class _$CartItemCopyWithImpl<$Res, $Val extends CartItem>
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String,
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String,
+      brandName: null == brandName
+          ? _value.brandName
+          : brandName // ignore: cast_nullable_to_non_nullable
+              as String,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as double,
       total: null == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
@@ -118,6 +139,9 @@ abstract class _$$CartItemImplCopyWith<$Res>
       int size,
       int colorType,
       String color,
+      String image,
+      String brandName,
+      double price,
       double total});
 }
 
@@ -138,6 +162,9 @@ class __$$CartItemImplCopyWithImpl<$Res>
     Object? size = null,
     Object? colorType = null,
     Object? color = null,
+    Object? image = null,
+    Object? brandName = null,
+    Object? price = null,
     Object? total = null,
   }) {
     return _then(_$CartItemImpl(
@@ -165,6 +192,18 @@ class __$$CartItemImplCopyWithImpl<$Res>
           ? _value.color
           : color // ignore: cast_nullable_to_non_nullable
               as String,
+      image: null == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String,
+      brandName: null == brandName
+          ? _value.brandName
+          : brandName // ignore: cast_nullable_to_non_nullable
+              as String,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as double,
       total: null == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
@@ -183,6 +222,9 @@ class _$CartItemImpl implements _CartItem {
       required this.size,
       required this.colorType,
       required this.color,
+      required this.image,
+      required this.brandName,
+      required this.price,
       required this.total});
 
   factory _$CartItemImpl.fromJson(Map<String, dynamic> json) =>
@@ -202,11 +244,17 @@ class _$CartItemImpl implements _CartItem {
   @override
   final String color;
   @override
+  final String image;
+  @override
+  final String brandName;
+  @override
+  final double price;
+  @override
   final double total;
 
   @override
   String toString() {
-    return 'CartItem(cartId: $cartId, productId: $productId, quantity: $quantity, size: $size, colorType: $colorType, color: $color, total: $total)';
+    return 'CartItem(cartId: $cartId, productId: $productId, quantity: $quantity, size: $size, colorType: $colorType, color: $color, image: $image, brandName: $brandName, price: $price, total: $total)';
   }
 
   @override
@@ -223,13 +271,17 @@ class _$CartItemImpl implements _CartItem {
             (identical(other.colorType, colorType) ||
                 other.colorType == colorType) &&
             (identical(other.color, color) || other.color == color) &&
+            (identical(other.image, image) || other.image == image) &&
+            (identical(other.brandName, brandName) ||
+                other.brandName == brandName) &&
+            (identical(other.price, price) || other.price == price) &&
             (identical(other.total, total) || other.total == total));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, cartId, productId, quantity, size, colorType, color, total);
+  int get hashCode => Object.hash(runtimeType, cartId, productId, quantity,
+      size, colorType, color, image, brandName, price, total);
 
   @JsonKey(ignore: true)
   @override
@@ -253,6 +305,9 @@ abstract class _CartItem implements CartItem {
       required final int size,
       required final int colorType,
       required final String color,
+      required final String image,
+      required final String brandName,
+      required final double price,
       required final double total}) = _$CartItemImpl;
 
   factory _CartItem.fromJson(Map<String, dynamic> json) =
@@ -270,6 +325,12 @@ abstract class _CartItem implements CartItem {
   int get colorType;
   @override
   String get color;
+  @override
+  String get image;
+  @override
+  String get brandName;
+  @override
+  double get price;
   @override
   double get total;
   @override

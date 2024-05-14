@@ -8,16 +8,22 @@ part of 'order_item.dart';
 
 _$OrderItemImpl _$$OrderItemImplFromJson(Map<String, dynamic> json) =>
     _$OrderItemImpl(
-      product: Product.fromJson(json['product'] as Map<String, dynamic>),
-      quantity: (json['quantity'] as num).toInt(),
-      size: json['size'] as String,
-      color: json['color'] as String,
+      orderId: json['orderId'] as String,
+      cartItems: (json['cartItems'] as List<dynamic>)
+          .map((e) => CartItem.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      totalOrderPrice: (json['totalOrderPrice'] as num).toDouble(),
+      additionalCharges: (json['additionalCharges'] as num).toDouble(),
+      paymentMethod: json['paymentMethod'] as String,
+      location: json['location'] as String,
     );
 
 Map<String, dynamic> _$$OrderItemImplToJson(_$OrderItemImpl instance) =>
     <String, dynamic>{
-      'product': instance.product,
-      'quantity': instance.quantity,
-      'size': instance.size,
-      'color': instance.color,
+      'orderId': instance.orderId,
+      'cartItems': instance.cartItems,
+      'totalOrderPrice': instance.totalOrderPrice,
+      'additionalCharges': instance.additionalCharges,
+      'paymentMethod': instance.paymentMethod,
+      'location': instance.location,
     };

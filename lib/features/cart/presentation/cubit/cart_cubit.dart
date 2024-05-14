@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
@@ -6,7 +8,7 @@ import '../../domain/domain.dart';
 part 'cart_state.dart';
 part 'cart_cubit.freezed.dart';
 
-class CartCubit extends Cubit<CartState> with HydratedMixin {
+class CartCubit extends HydratedCubit<CartState> {
   CartCubit() : super(const CartState.initial());
 
   List<CartItem> getCartList() {
@@ -84,19 +86,10 @@ class CartCubit extends Cubit<CartState> with HydratedMixin {
         cartItems: response,
       );
     } catch (e) {
-      throw e.toString();
+      log(e.toString());
+      return null;
     }
   }
-
-  // final response = json.values.map((e) => CartItem.fromJson(e)).toList();
-  // if (response.isNotEmpty) {
-  //   return CartState.success(
-  //     cartItems: response,
-  //   );
-  // } else {
-  // }
-  //   return null;
-  // }
 
   @override
   Map<String, dynamic>? toJson(CartState state) {
@@ -113,7 +106,8 @@ class CartCubit extends Cubit<CartState> with HydratedMixin {
             ),
           );
     } catch (e) {
-      throw e.toString();
+      log(e.toString());
+      return null;
     }
   }
 }

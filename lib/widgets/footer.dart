@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_project/res/res.dart' show StringRes;
+import 'package:test_project/util/util.dart';
 
 class Footer extends StatelessWidget {
   final Widget? leading;
@@ -56,14 +57,15 @@ class Footer extends StatelessWidget {
               Expanded(
                 child: leading ??
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(leadingLabel ?? "Price"),
-                        Text("\$${leadingprice ?? 235.00}"),
+                        Text(
+                          "\$${leadingprice ?? 235.00}",
+                          style: context.headlineMedium,
+                        ),
                       ],
                     ),
-              ),
-              const SizedBox(
-                width: 24,
               ),
               Expanded(
                 child: ElevatedButton(

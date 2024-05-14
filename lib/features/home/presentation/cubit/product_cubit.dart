@@ -93,11 +93,11 @@ class ProductCubit extends Cubit<ProductState> {
     }
   }
 
-  int getItemCount([int? brandType]) {
+  int getItemCount([String? brandName]) {
     try {
       final newList = getProductList()
           .where((element) =>
-              brandType == null ? true : element.brandType == brandType)
+              brandName == null ? true : element.brandName == brandName)
           .toList();
       return newList.length;
     } catch (e) {

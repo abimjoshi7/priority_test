@@ -92,7 +92,9 @@ class FilterPage extends HookWidget {
                                       Text(
                                         context
                                             .read<ProductCubit>()
-                                            .getItemCount()
+                                            .getItemCount(
+                                              e.name,
+                                            )
                                             .toString(),
                                       ),
                                     ],
@@ -218,50 +220,55 @@ class FilterPage extends HookWidget {
             ),
           ),
           Footer(
-            btnText: StringRes.kReset,
+            btnText: StringRes.kApply.toUpperCase(),
             leading: OutlinedButton(
               onPressed: () {
-                // for (int i = 0; i < 25; i++) {
-                //   context.read<ReviewCubit>().insertReview(
-                //         Review(
-                //           createdDate: DateTime.now(),
-                //           productId: randomInt(1, 11).run(),
-                //           rating: randomInt(1, 6).run().toDouble(),
-                //           userId: randomInt(1, 5).run(),
-                //           comment:
-                //               "Noice great product. I love the fit. I would recommend this product to anyone. I love the fit. I would recommend this product to anyone. I love the fit. I would recommend this product to anyone.",
+                // // for (int i = 0; i < 25; i++) {
+                // //   context.read<ReviewCubit>().insertReview(
+                // //         Review(
+                // //           createdDate: DateTime.now(),
+                // //           productId: randomInt(1, 11).run(),
+                // //           rating: randomInt(1, 6).run().toDouble(),
+                // //           userId: randomInt(1, 5).run(),
+                // //           comment:
+                // //               "Noice great product. I love the fit. I would recommend this product to anyone. I love the fit. I would recommend this product to anyone. I love the fit. I would recommend this product to anyone.",
+                // //         ),
+                // //       );
+                // // }
+                // // add 10 products
+                // for (int i = 0; i < 10; i++) {
+                //   var brandType = randomInt(1, 6).run();
+                //   context.read<ProductCubit>().insertProduct(
+                //         Product(
+                //           brandType: brandType,
+                //           colors: [1, 2, 3, 4],
+                //           description:
+                //               "Engineered to crush any movement-based workout, these On sneakers enhance the label's original Cloud sneaker with cutting edge technologies for a pair.",
+                //           genderType: randomInt(0, 3).run(),
+                //           image: "assets/images/${i + 1}.png",
+                //           id: i + 1,
+                //           name: "Jordan 1 Retro High Tie Dye",
+                //           price: randomInt(200, 2000).run().toDouble(),
+                //           sizes: [44, 46, 48, 50],
+                //           brandName: ShoesBrands.values
+                //               .firstWhere(
+                //                   (element) => element.brandType == brandType)
+                //               .name,
+                //           avgRating: 0.0,
                 //         ),
                 //       );
                 // }
-                // add 10 products
-                for (int i = 0; i < 10; i++) {
-                  var brandType = randomInt(1, 6).run();
-                  context.read<ProductCubit>().insertProduct(
-                        Product(
-                          brandType: brandType,
-                          colors: [1, 2, 3, 4],
-                          description:
-                              "Engineered to crush any movement-based workout, these On sneakers enhance the label's original Cloud sneaker with cutting edge technologies for a pair.",
-                          genderType: randomInt(0, 3).run(),
-                          image: "assets/images/${i + 1}.png",
-                          id: i + 1,
-                          name: "Jordan 1 Retro High Tie Dye",
-                          price: randomInt(200, 2000).run().toDouble(),
-                          sizes: [44, 46, 48, 50],
-                          brandName: ShoesBrands.values
-                              .firstWhere(
-                                  (element) => element.brandType == brandType)
-                              .name,
-                          avgRating: 0.0,
-                        ),
-                      );
-                }
               },
-              child: const Text(
-                StringRes.kAddToCart,
+              child: Text(
+                StringRes.kReset.toUpperCase(),
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              print(selectedBrand.value);
+              print(selectedSort.value);
+              print(selectedGender.value);
+              print(selectedColor.value);
+            },
           )
         ],
       ),

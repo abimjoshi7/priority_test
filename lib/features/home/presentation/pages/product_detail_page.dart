@@ -300,6 +300,9 @@ class CartBottomSheet extends HookWidget {
         size: size,
         total: (int.tryParse(qty.text) ?? 0) *
             context.read<ProductCubit>().getProductById(product.id).price,
+        brandName: product.brandName ?? "",
+        image: product.image,
+        price: product.price,
       ),
     );
     return Padding(

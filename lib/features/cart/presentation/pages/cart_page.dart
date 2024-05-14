@@ -92,15 +92,9 @@ class CartPage extends HookWidget {
                                                 .brandName ??
                                             "",
                                       ),
-                                      SizedBox(
-                                        width: 8,
-                                        child: Center(child: Text(".")),
-                                      ),
+                                      const CustomDotDivider(),
                                       Text(cartList[index].color),
-                                      SizedBox(
-                                        width: 8,
-                                        child: Center(child: Text(".")),
-                                      ),
+                                      const CustomDotDivider(),
                                       Text(
                                         cartList[index].size.toString(),
                                       ),
@@ -153,6 +147,20 @@ class CartPage extends HookWidget {
           );
         },
       ),
+    );
+  }
+}
+
+class CustomDotDivider extends StatelessWidget {
+  const CustomDotDivider({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 8,
+      child: Center(child: Text(".")),
     );
   }
 }

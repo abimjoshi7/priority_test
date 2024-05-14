@@ -4,10 +4,12 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:test_project/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:test_project/features/home/data/data.dart';
 import 'package:test_project/features/home/presentation/cubit/product_cubit.dart';
+import 'package:test_project/features/payment/domain/domain.dart';
 import 'package:test_project/features/payment/presentation/cubit/order_cubit.dart';
 import 'package:test_project/features/review/data/repository/repository.dart';
 
 import 'features/home/domain/domain.dart';
+import 'features/payment/data/data.dart';
 import 'features/review/domain/domain.dart';
 import 'features/review/presentation/cubit/review_cubit.dart';
 
@@ -23,6 +25,11 @@ init() => locator
   )
   ..registerLazySingleton<ReviewRepository>(
     () => ReviewRepositoryImpl(
+      locator<FirebaseFirestore>(),
+    ),
+  )
+  ..registerLazySingleton<OrderItemRepository>(
+    () => OrderItemRepositoryImpl(
       locator<FirebaseFirestore>(),
     ),
   )
@@ -46,6 +53,16 @@ init() => locator
       locator<ReviewRepository>(),
     ),
   )
+  ..registerLazySingleton<GetOrderItems>(
+    () => GetOrderItems(
+      locator<OrderItemRepository>(),
+    ),
+  )
+  ..registerLazySingleton<AddOrderItem>(
+    () => AddOrderItem(
+      locator<OrderItemRepository>(),
+    ),
+  )
   ..registerFactory(
     () => ProductCubit(
       addProduct: locator<AddProduct>(),
@@ -62,5 +79,8 @@ init() => locator
     () => CartCubit(),
   )
   ..registerFactory(
-    () => OrderCubit(),
+    () => OrderCubit(
+      locator<AddOrderItem>(),
+      locator<GetOrderItems>(),
+    ),
   );

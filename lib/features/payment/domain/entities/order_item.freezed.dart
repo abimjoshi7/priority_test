@@ -20,10 +20,12 @@ OrderItem _$OrderItemFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$OrderItem {
-  Product get product => throw _privateConstructorUsedError;
-  int get quantity => throw _privateConstructorUsedError;
-  String get size => throw _privateConstructorUsedError;
-  String get color => throw _privateConstructorUsedError;
+  String get orderId => throw _privateConstructorUsedError;
+  List<CartItem> get cartItems => throw _privateConstructorUsedError;
+  double get totalOrderPrice => throw _privateConstructorUsedError;
+  double get additionalCharges => throw _privateConstructorUsedError;
+  String get paymentMethod => throw _privateConstructorUsedError;
+  String get location => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,9 +38,13 @@ abstract class $OrderItemCopyWith<$Res> {
   factory $OrderItemCopyWith(OrderItem value, $Res Function(OrderItem) then) =
       _$OrderItemCopyWithImpl<$Res, OrderItem>;
   @useResult
-  $Res call({Product product, int quantity, String size, String color});
-
-  $ProductCopyWith<$Res> get product;
+  $Res call(
+      {String orderId,
+      List<CartItem> cartItems,
+      double totalOrderPrice,
+      double additionalCharges,
+      String paymentMethod,
+      String location});
 }
 
 /// @nodoc
@@ -54,37 +60,39 @@ class _$OrderItemCopyWithImpl<$Res, $Val extends OrderItem>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? product = null,
-    Object? quantity = null,
-    Object? size = null,
-    Object? color = null,
+    Object? orderId = null,
+    Object? cartItems = null,
+    Object? totalOrderPrice = null,
+    Object? additionalCharges = null,
+    Object? paymentMethod = null,
+    Object? location = null,
   }) {
     return _then(_value.copyWith(
-      product: null == product
-          ? _value.product
-          : product // ignore: cast_nullable_to_non_nullable
-              as Product,
-      quantity: null == quantity
-          ? _value.quantity
-          : quantity // ignore: cast_nullable_to_non_nullable
-              as int,
-      size: null == size
-          ? _value.size
-          : size // ignore: cast_nullable_to_non_nullable
+      orderId: null == orderId
+          ? _value.orderId
+          : orderId // ignore: cast_nullable_to_non_nullable
               as String,
-      color: null == color
-          ? _value.color
-          : color // ignore: cast_nullable_to_non_nullable
+      cartItems: null == cartItems
+          ? _value.cartItems
+          : cartItems // ignore: cast_nullable_to_non_nullable
+              as List<CartItem>,
+      totalOrderPrice: null == totalOrderPrice
+          ? _value.totalOrderPrice
+          : totalOrderPrice // ignore: cast_nullable_to_non_nullable
+              as double,
+      additionalCharges: null == additionalCharges
+          ? _value.additionalCharges
+          : additionalCharges // ignore: cast_nullable_to_non_nullable
+              as double,
+      paymentMethod: null == paymentMethod
+          ? _value.paymentMethod
+          : paymentMethod // ignore: cast_nullable_to_non_nullable
+              as String,
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $ProductCopyWith<$Res> get product {
-    return $ProductCopyWith<$Res>(_value.product, (value) {
-      return _then(_value.copyWith(product: value) as $Val);
-    });
   }
 }
 
@@ -96,10 +104,13 @@ abstract class _$$OrderItemImplCopyWith<$Res>
       __$$OrderItemImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Product product, int quantity, String size, String color});
-
-  @override
-  $ProductCopyWith<$Res> get product;
+  $Res call(
+      {String orderId,
+      List<CartItem> cartItems,
+      double totalOrderPrice,
+      double additionalCharges,
+      String paymentMethod,
+      String location});
 }
 
 /// @nodoc
@@ -113,27 +124,37 @@ class __$$OrderItemImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? product = null,
-    Object? quantity = null,
-    Object? size = null,
-    Object? color = null,
+    Object? orderId = null,
+    Object? cartItems = null,
+    Object? totalOrderPrice = null,
+    Object? additionalCharges = null,
+    Object? paymentMethod = null,
+    Object? location = null,
   }) {
     return _then(_$OrderItemImpl(
-      product: null == product
-          ? _value.product
-          : product // ignore: cast_nullable_to_non_nullable
-              as Product,
-      quantity: null == quantity
-          ? _value.quantity
-          : quantity // ignore: cast_nullable_to_non_nullable
-              as int,
-      size: null == size
-          ? _value.size
-          : size // ignore: cast_nullable_to_non_nullable
+      orderId: null == orderId
+          ? _value.orderId
+          : orderId // ignore: cast_nullable_to_non_nullable
               as String,
-      color: null == color
-          ? _value.color
-          : color // ignore: cast_nullable_to_non_nullable
+      cartItems: null == cartItems
+          ? _value._cartItems
+          : cartItems // ignore: cast_nullable_to_non_nullable
+              as List<CartItem>,
+      totalOrderPrice: null == totalOrderPrice
+          ? _value.totalOrderPrice
+          : totalOrderPrice // ignore: cast_nullable_to_non_nullable
+              as double,
+      additionalCharges: null == additionalCharges
+          ? _value.additionalCharges
+          : additionalCharges // ignore: cast_nullable_to_non_nullable
+              as double,
+      paymentMethod: null == paymentMethod
+          ? _value.paymentMethod
+          : paymentMethod // ignore: cast_nullable_to_non_nullable
+              as String,
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -143,26 +164,39 @@ class __$$OrderItemImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$OrderItemImpl implements _OrderItem {
   const _$OrderItemImpl(
-      {required this.product,
-      required this.quantity,
-      required this.size,
-      required this.color});
+      {required this.orderId,
+      required final List<CartItem> cartItems,
+      required this.totalOrderPrice,
+      required this.additionalCharges,
+      required this.paymentMethod,
+      required this.location})
+      : _cartItems = cartItems;
 
   factory _$OrderItemImpl.fromJson(Map<String, dynamic> json) =>
       _$$OrderItemImplFromJson(json);
 
   @override
-  final Product product;
+  final String orderId;
+  final List<CartItem> _cartItems;
   @override
-  final int quantity;
+  List<CartItem> get cartItems {
+    if (_cartItems is EqualUnmodifiableListView) return _cartItems;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_cartItems);
+  }
+
   @override
-  final String size;
+  final double totalOrderPrice;
   @override
-  final String color;
+  final double additionalCharges;
+  @override
+  final String paymentMethod;
+  @override
+  final String location;
 
   @override
   String toString() {
-    return 'OrderItem(product: $product, quantity: $quantity, size: $size, color: $color)';
+    return 'OrderItem(orderId: $orderId, cartItems: $cartItems, totalOrderPrice: $totalOrderPrice, additionalCharges: $additionalCharges, paymentMethod: $paymentMethod, location: $location)';
   }
 
   @override
@@ -170,16 +204,29 @@ class _$OrderItemImpl implements _OrderItem {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$OrderItemImpl &&
-            (identical(other.product, product) || other.product == product) &&
-            (identical(other.quantity, quantity) ||
-                other.quantity == quantity) &&
-            (identical(other.size, size) || other.size == size) &&
-            (identical(other.color, color) || other.color == color));
+            (identical(other.orderId, orderId) || other.orderId == orderId) &&
+            const DeepCollectionEquality()
+                .equals(other._cartItems, _cartItems) &&
+            (identical(other.totalOrderPrice, totalOrderPrice) ||
+                other.totalOrderPrice == totalOrderPrice) &&
+            (identical(other.additionalCharges, additionalCharges) ||
+                other.additionalCharges == additionalCharges) &&
+            (identical(other.paymentMethod, paymentMethod) ||
+                other.paymentMethod == paymentMethod) &&
+            (identical(other.location, location) ||
+                other.location == location));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, product, quantity, size, color);
+  int get hashCode => Object.hash(
+      runtimeType,
+      orderId,
+      const DeepCollectionEquality().hash(_cartItems),
+      totalOrderPrice,
+      additionalCharges,
+      paymentMethod,
+      location);
 
   @JsonKey(ignore: true)
   @override
@@ -197,22 +244,28 @@ class _$OrderItemImpl implements _OrderItem {
 
 abstract class _OrderItem implements OrderItem {
   const factory _OrderItem(
-      {required final Product product,
-      required final int quantity,
-      required final String size,
-      required final String color}) = _$OrderItemImpl;
+      {required final String orderId,
+      required final List<CartItem> cartItems,
+      required final double totalOrderPrice,
+      required final double additionalCharges,
+      required final String paymentMethod,
+      required final String location}) = _$OrderItemImpl;
 
   factory _OrderItem.fromJson(Map<String, dynamic> json) =
       _$OrderItemImpl.fromJson;
 
   @override
-  Product get product;
+  String get orderId;
   @override
-  int get quantity;
+  List<CartItem> get cartItems;
   @override
-  String get size;
+  double get totalOrderPrice;
   @override
-  String get color;
+  double get additionalCharges;
+  @override
+  String get paymentMethod;
+  @override
+  String get location;
   @override
   @JsonKey(ignore: true)
   _$$OrderItemImplCopyWith<_$OrderItemImpl> get copyWith =>
