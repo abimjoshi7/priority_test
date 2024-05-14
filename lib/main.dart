@@ -1,8 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:test_project/app_observer.dart';
+import 'package:test_project/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:test_project/features/home/presentation/cubit/product_cubit.dart';
 import 'package:test_project/features/review/presentation/cubit/review_cubit.dart';
 import 'package:test_project/firebase_options.dart';
@@ -14,6 +17,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   Bloc.observer = const AppBlocObserver();
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: await getApplicationDocumentsDirectory(),
+  );
 
   const supabaseUrl = 'https://pbwxtxxroyigoqzasepb.supabase.co';
   const supabaseKey =
@@ -33,6 +39,12 @@ void main() async {
         ),
         BlocProvider(
           create: (context) => locator<ReviewCubit>()..fetchReviews(),
+        ),
+        BlocProvider(
+          create: (context) => locator<CartCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => locator<CartCubit>(),
         ),
       ],
       child: const MyApp(),

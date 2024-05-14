@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:test_project/enums.dart';
 import 'package:test_project/features/cart/domain/domain.dart';
+import 'package:test_project/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:test_project/features/home/presentation/presentation.dart';
 import 'package:test_project/features/review/presentation/cubit/review_cubit.dart';
 import 'package:test_project/res/res.dart';
@@ -25,13 +26,11 @@ class ProductDetailPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    // useEffect(() {
-    //   context.read<ProductCubit>().fetchProducts(id);
-    //   return;
-    // }, const []);
-    final product = context.read<ProductCubit>().fetchProduct(id);
+    final product = context.read<ProductCubit>().getProductById(id);
     final selectedColor = useState(ShoeColor.White);
-    final selectedSize = useState<int?>(null);
+    final selectedSize = useState<int>(
+      product.sizes.first,
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -263,7 +262,7 @@ class ProductDetailPage extends HookWidget {
               CartBottomSheet(
                 product: product,
                 color: selectedColor.value,
-                size: selectedSize.value ?? 44,
+                size: selectedSize.value,
               ),
               canPop: false,
               showDragHandle: true,
@@ -293,11 +292,14 @@ class CartBottomSheet extends HookWidget {
     final cartItem = useState<CartItem?>(null);
     qty.addListener(
       () => cartItem.value = CartItem(
-        product: product,
+        cartId: int.parse("${product.id}${color.colorType}$size"),
+        productId: product.id,
         color: color.name,
         colorType: color.colorType,
         quantity: int.tryParse(qty.text) ?? 0,
         size: size,
+        total: (int.tryParse(qty.text) ?? 0) *
+            context.read<ProductCubit>().getProductById(product.id).price,
       ),
     );
     return Padding(
@@ -374,14 +376,28 @@ class CartBottomSheet extends HookWidget {
                     )
                   ],
                 ),
-                ElevatedButton(
-                  onPressed: () => print(cartItem.value),
-                  // Navigator.pushNamed(
-                  //   context,
-                  //   RouteRes.kCartPage,
-                  // ),
-                  child: const Text(
-                    StringRes.kAddToCart,
+                BlocListener<CartCubit, CartState>(
+                  listener: (context, state) {
+                    state.mapOrNull(
+                      success: (value) => context.showBottomSheet(
+                        const AddedCartSheet(),
+                      ),
+                    );
+                  },
+                  child: ElevatedButton(
+                    onPressed: cartItem.value == null
+                        ? () {}
+                        : () => qty.text.isEmpty
+                            ? context.showSnackBar(
+                                isSuccessful: false,
+                                StringRes.kQtyCantBeEmpty,
+                              )
+                            : context
+                                .read<CartCubit>()
+                                .addToCart(cartItem.value!),
+                    child: const Text(
+                      StringRes.kAddToCart,
+                    ),
                   ),
                 ),
               ],
@@ -389,6 +405,79 @@ class CartBottomSheet extends HookWidget {
           )
         ],
       ),
+    );
+  }
+}
+
+class AddedCartSheet extends StatelessWidget {
+  const AddedCartSheet({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: context.onPrimary,
+              width: 2,
+            ),
+          ),
+          margin: EdgeInsets.all(16),
+          padding: EdgeInsets.all(16),
+          child: Icon(
+            Icons.check,
+            size: 32,
+            color: context.onContainerColor,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Text(
+            "Added to cart",
+            style: context.headlineSmall,
+          ),
+        ),
+        Text("${context.read<CartCubit>().getCartCount()} Item Total"),
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Expanded(
+                child: OutlinedButton(
+                  onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    RouteRes.kHomePage,
+                    (route) => false,
+                  ),
+                  child: Text(
+                    "Back explore",
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 24,
+              ),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    RouteRes.kCartPage,
+                    (route) => route.isFirst,
+                  ),
+                  child: const Text(
+                    "To cart",
+                  ),
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
     );
   }
 }

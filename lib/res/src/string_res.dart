@@ -22,4 +22,6 @@ class StringRes {
   static const kReset = "Reset";
   static const kSeeAllReview = "See all review";
   static const kQuantity = "Quantity";
+  static const kQtyCantBeEmpty = "Quantity cannot be empty";
+  static const kCart = "Cart";
 }

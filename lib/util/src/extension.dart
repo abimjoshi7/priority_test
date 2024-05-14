@@ -97,6 +97,8 @@ extension BuildContextEntension<T> on BuildContext {
 
   Color get onSecondary => Theme.of(this).colorScheme.onSecondary;
 
+  Color get tertiary => Theme.of(this).colorScheme.tertiary;
+
   Color get canvasColor => Theme.of(this).canvasColor;
 
   Color get cardColor => Theme.of(this).cardColor;
@@ -161,58 +163,77 @@ extension BuildContextEntension<T> on BuildContext {
 
   /// Shows a snack bar with the given [message].
   /// Additional customization options are available via named parameters.
-  // ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showSnackBar(
-  //   String message, {
-  //   bool showAction = false,
-  //   VoidCallback? onPressed,
-  //   bool isSuccessful = false,
-  // }) {
-  //   final mediaQueryData = MediaQuery.of(this);
-  //   ScaffoldMessenger.of(this).clearSnackBars();
-  //   return ScaffoldMessenger.of(this).showSnackBar(
-  //     SnackBar(
-  //       elevation: 4,
-  //       showCloseIcon: true,
-  //       behavior: SnackBarBehavior.floating,
-  //       margin: 16.paddingAll,
-  //       padding: EdgeInsets.only(
-  //         bottom: mediaQueryData.viewInsets.bottom,
-  //       ),
-  //       content: Center(
-  //         child: Padding(
-  //           padding: const EdgeInsets.all(8.0),
-  //           child: Row(
-  //             children: [
-  //               Icon(
-  //                 isSuccessful
-  //                     ? Icons.done_rounded
-  //                     : Icons.warning_amber_rounded,
-  //                 color: isSuccessful ? kClrGreen : kClrRed,
-  //               ),
-  //               16.widthBox,
-  //               Flexible(
-  //                 child: Text(
-  //                   message,
-  //                   maxLines: 2,
-  //                   overflow: TextOverflow.ellipsis,
-  //                   style: TextStyle(
-  //                     fontWeight: FontWeight.w500,
-  //                   ),
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       ),
-  //       action: showAction
-  //           ? SnackBarAction(
-  //               label: "Go",
-  //               onPressed: onPressed ?? () {},
-  //             )
-  //           : null,
-  //     ),
-  //   );
-  // }
+  ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showSnackBar(
+    String message, {
+    bool showAction = false,
+    VoidCallback? onPressed,
+    bool isSuccessful = false,
+  }) {
+    final mediaQueryData = MediaQuery.of(this);
+    ScaffoldMessenger.of(this).clearSnackBars();
+    return ScaffoldMessenger.of(this).showSnackBar(
+      SnackBar(
+        elevation: 4,
+        showCloseIcon: true,
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.all(16),
+        padding: EdgeInsets.only(
+          bottom: mediaQueryData.viewInsets.bottom,
+        ),
+        content: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 16),
+                  child: Icon(
+                    isSuccessful
+                        ? Icons.done_rounded
+                        : Icons.warning_amber_rounded,
+                    color: isSuccessful ? tertiary : errorColor,
+                  ),
+                ),
+                Flexible(
+                  child: Text(
+                    message,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        action: showAction
+            ? SnackBarAction(
+                label: "Go",
+                onPressed: onPressed ?? () {},
+              )
+            : null,
+      ),
+    );
+  }
+
+  Future<T?> showLoading() async {
+    return showAdaptiveDialog<T>(
+      context: this,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          child: Center(
+            child: CircularProgressIndicator.adaptive(
+              backgroundColor: onPrimary,
+            ),
+          ),
+        );
+      },
+    );
+  }
 }
 
 extension DateComparison on DateTime {

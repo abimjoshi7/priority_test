@@ -18,6 +18,7 @@ class AppTheme {
         primaryContainer: AppPalette.kClrPaleGrey,
         onPrimaryContainer: AppPalette.kClrSliver,
         outline: AppPalette.kClrOutlinedGrey,
+        tertiary: AppPalette.kClrGreen,
       );
 
   static ThemeData get themeData {

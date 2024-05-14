@@ -17,9 +17,7 @@ mixin AppRouter {
           case RouteRes.kReviewPage:
             return ReviewPage(productId: routeSettings.arguments as int);
           case RouteRes.kCartPage:
-            return const CartPage(
-              products: [],
-            );
+            return const CartPage();
           case RouteRes.kOrderSummaryPage:
             return const OrderSummaryPage();
           default:

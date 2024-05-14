@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:test_project/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:test_project/res/res.dart';
 import 'package:test_project/routes/routes.dart';
 
@@ -18,8 +20,11 @@ class CartBtn extends StatelessWidget {
         context,
         RouteRes.kCartPage,
       ),
-      icon: SvgPicture.asset(
-        DrawableRes.kIconBag,
+      icon: Badge(
+        isLabelVisible: context.read<CartCubit>().getCartList().isNotEmpty,
+        child: SvgPicture.asset(
+          DrawableRes.kIconBag,
+        ),
       ),
     );
   }

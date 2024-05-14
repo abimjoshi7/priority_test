@@ -68,7 +68,7 @@ class ProductCubit extends Cubit<ProductState> {
     );
   }
 
-  Product fetchProduct(int id) {
+  Product getProductById(int id) {
     try {
       final products = getProductList();
       return products.firstWhere((element) => element.id == id);
