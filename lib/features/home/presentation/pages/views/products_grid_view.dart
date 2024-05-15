@@ -4,7 +4,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:test_project/core/enums/enums.dart';
 import 'package:test_project/features/features.dart';
-import 'package:test_project/features/review/presentation/cubit/review_cubit.dart';
 import 'package:test_project/core/res/res.dart';
 import 'package:test_project/core/routes/routes.dart';
 import 'package:test_project/core/util/util.dart';

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:fpdart/fpdart.dart';
 import 'package:test_project/core/core.dart';
 
 import 'package:test_project/features/features.dart';
@@ -264,15 +263,11 @@ class OrderSummaryPage extends HookWidget {
                               (route) => false,
                             );
                           },
-                          child: Text("Go home"),
+                          child: const Text("Go home"),
                         ),
                       ),
                     ),
                   );
-                  // state.mapOrNull(
-                  //   success: (_) => context.showBottomSheet(
-                  //     SuccessSheet(
-                  //       label: "Purchase successful", info: "", left: const SizedBox.shrink(), right: ElevatedButton(onPressed: () => , child: Text("Go home"))")),))
                 },
                 child: Footer(
                   btnText: StringRes.kPayment,

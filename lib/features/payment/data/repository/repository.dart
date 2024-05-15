@@ -30,13 +30,11 @@ class OrderItemRepositoryImpl implements OrderItemRepository {
 
   @override
   Future<Either<Exception, int>> deleteT(int id) {
-    // TODO: implement deleteT
     throw UnimplementedError();
   }
 
   @override
   Future<Either<Exception, OrderItem>> getT(int id) {
-    // TODO: implement getT
     throw UnimplementedError();
   }
 

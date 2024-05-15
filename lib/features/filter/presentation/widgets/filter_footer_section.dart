@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fpdart/fpdart.dart';
 import 'package:test_project/core/core.dart';
 import 'package:test_project/features/features.dart';
 import 'package:test_project/widgets/widgets.dart';

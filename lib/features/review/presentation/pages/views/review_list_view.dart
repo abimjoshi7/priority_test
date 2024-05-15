@@ -6,8 +6,6 @@ import 'package:test_project/core/core.dart';
 
 import 'package:test_project/features/review/domain/domain.dart';
 import 'package:test_project/features/review/presentation/cubit/review_cubit.dart';
-import 'package:test_project/core/res/res.dart';
-import 'package:test_project/core/util/util.dart';
 import 'package:test_project/widgets/widgets.dart';
 
 class ReviewListView extends HookWidget {

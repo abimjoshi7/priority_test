@@ -16,7 +16,7 @@ class FilterPage extends HookWidget {
     final selectedSort = useState<SortOptions?>(null);
     final selectedGender = useState<Gender?>(null);
     final selectedColor = useState<int?>(null);
-    final minPrice = 0.0;
+    const minPrice = 0.0;
     final maxPrice = context.read<ProductCubit>().getExpensiveProduct().price;
     final rangeValues = useState(
       RangeValues(minPrice, maxPrice),

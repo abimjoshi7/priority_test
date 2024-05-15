@@ -19,8 +19,6 @@ class HomePage extends HookWidget {
       initialLength: tabList.length,
     );
 
-    final sortOption = useState<SortOptions?>(null);
-
     return Scaffold(
       body: CustomScrollView(
         slivers: [
