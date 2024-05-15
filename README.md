@@ -1,16 +1,26 @@
 # test_project
 
-A new Flutter project.
+Priority Soft assessment project.
+
+## About
+
+- Cubit and Hooks as state management.
+- Freezed for model entity.
+- Loosely follow clean architecture.
+- HydratedBloc to persist cart items.
+- Supabase to implement edge functions as firebase required payment for it's function integration.
+- Firestore for database with three collections 'products', 'reviews' and 'orders'.
+- Supabase and firebase creds attached to project for reference
+- Use of enums rather than models for representing various business entities.
 
 ## Getting Started
+- Run ```dart run build_runner build -d``` to build freezed objects.
+- No flavor implementation so flutter run is enough
 
-This project is a starting point for a Flutter application that follows the
-[simple app state management
-tutorial](https://flutter.dev/docs/development/data-and-backend/state-mgmt/simple).
-
-For help getting started with Flutter development, view the
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Challenges
+- Exposure to typescript for handling edge functions in supabase
+- Minimizing API calls to stay under firebase quota
+- Desiging of a few UI elements and trying to adhere to the given design.
 
 ## Assets
 
@@ -20,11 +30,3 @@ include with your application.
 The `assets/images` directory contains [resolution-aware
 images](https://flutter.dev/docs/development/ui/assets-and-images#resolution-aware).
 
-## Localization
-
-This project generates localized messages based on arb files found in
-the `lib/src/localization` directory.
-
-To support additional languages, please visit the tutorial on
-[Internationalizing Flutter
-apps](https://flutter.dev/docs/development/accessibility-and-localization/internationalization)
