@@ -1,4 +1,4 @@
-import 'package:test_project/generics/base_methods.dart';
+import 'package:test_project/core/generics/base_methods.dart';
 
 import '../domain.dart';
 

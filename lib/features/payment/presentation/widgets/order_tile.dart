@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:test_project/features/cart/domain/entities/cart_item.dart';
 import 'package:test_project/features/features.dart';
-import 'package:test_project/util/util.dart';
+import 'package:test_project/core/util/util.dart';
+import 'package:test_project/widgets/widgets.dart';
 
 class OrderTile extends StatelessWidget {
   const OrderTile({

@@ -4,15 +4,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:test_project/app_observer.dart';
 import 'package:test_project/features/cart/presentation/cubit/cart_cubit.dart';
+import 'package:test_project/features/features.dart';
 import 'package:test_project/features/home/presentation/cubit/product_cubit.dart';
 import 'package:test_project/features/payment/presentation/cubit/order_cubit.dart';
 import 'package:test_project/features/review/presentation/cubit/review_cubit.dart';
 import 'package:test_project/firebase_options.dart';
 
+import 'app_observer.dart';
 import 'di.dart';
-import 'src/app.dart';
+import 'app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,6 +47,9 @@ void main() async {
         ),
         BlocProvider(
           create: (context) => locator<OrderCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => locator<FilterCubit>(),
         ),
       ],
       child: const MyApp(),

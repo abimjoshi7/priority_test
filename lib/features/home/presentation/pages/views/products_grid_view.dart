@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:test_project/enums.dart';
+import 'package:test_project/core/enums/enums.dart';
+import 'package:test_project/features/features.dart';
 import 'package:test_project/features/review/presentation/cubit/review_cubit.dart';
-import 'package:test_project/res/res.dart';
-import 'package:test_project/routes/routes.dart';
-import 'package:test_project/util/util.dart';
+import 'package:test_project/core/res/res.dart';
+import 'package:test_project/core/routes/routes.dart';
+import 'package:test_project/core/util/util.dart';
 import 'package:test_project/widgets/widgets.dart';
-
-import '../../presentation.dart';
 
 class ProductsGridView extends HookWidget {
   const ProductsGridView(
@@ -25,14 +24,23 @@ class ProductsGridView extends HookWidget {
       builder: (context, state) {
         return state.maybeMap(
           failure: (value) {
-            var s = "Something went wrong. Please try again.";
             return Center(
-              child: Text(value.exception?.toString() ?? s),
+              child: Text(
+                  value.exception?.toString() ?? StringRes.kSomethingWentWrong),
             );
           },
           success: (value) {
             final productList = context.read<ProductCubit>().filterBrand(
                   indexNumber,
+                  lowestPrice: context.watch<FilterCubit>().state.isLowestPrice,
+                  highestReview:
+                      context.watch<FilterCubit>().state.isHighestReview,
+                  recentlyAdded:
+                      context.watch<FilterCubit>().state.isMostRecent,
+                  colorType: context.watch<FilterCubit>().state.colorType,
+                  genderType: context.watch<FilterCubit>().state.genderType,
+                  startPrice: context.watch<FilterCubit>().state.startPrice,
+                  endPrice: context.watch<FilterCubit>().state.endPrice,
                 );
             return Padding(
               padding: const EdgeInsets.symmetric(
@@ -111,9 +119,12 @@ class ProductsGridView extends HookWidget {
                             BlocBuilder<ReviewCubit, ReviewState>(
                               builder: (context, state) {
                                 return Text(
-                                    "(${context.read<ReviewCubit>().getReviewCount(
-                                          productList[index].id,
-                                        )})");
+                                  "(${context.read<ReviewCubit>().getReviewCount(
+                                        productList[index].id,
+                                      )} Reviews)",
+                                  style: context.labelLarge?.copyWith(
+                                      color: context.onContainerColor),
+                                );
                               },
                             ),
                           ],

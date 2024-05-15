@@ -49,17 +49,14 @@ class CartCubit extends HydratedCubit<CartState> {
 
   void removeFromCart(CartItem item) {
     try {
-      emit(const CartState.loading());
-      var newList = List<CartItem>.from(getCartList())..remove(item);
+      final currentCartList = getCartList();
+      if (!currentCartList.contains(item)) {
+        throw Exception('Item not found in the cart');
+      }
+      final newList = List<CartItem>.from(currentCartList)..remove(item);
       emit(CartState.success(cartItems: newList));
     } catch (e) {
-      emit(
-        CartState.failure(
-          Exception(
-            e.toString(),
-          ),
-        ),
-      );
+      emit(CartState.failure(Exception(e.toString())));
     }
   }
 

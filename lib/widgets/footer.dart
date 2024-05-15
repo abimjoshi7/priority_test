@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_project/res/res.dart' show StringRes;
-import 'package:test_project/util/util.dart';
+import 'package:test_project/core/core.dart';
 
 class Footer extends StatelessWidget {
   final Widget? leading;
@@ -70,7 +69,7 @@ class Footer extends StatelessWidget {
               Expanded(
                 child: ElevatedButton(
                   onPressed: onPressed,
-                  child: Text(btnText ?? StringRes.kAddToCart),
+                  child: Text(btnText ?? StringRes.kAddToCart.toUpperCase()),
                 ),
               )
             ],

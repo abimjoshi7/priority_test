@@ -21,7 +21,7 @@ _$OrderItemImpl _$$OrderItemImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$OrderItemImplToJson(_$OrderItemImpl instance) =>
     <String, dynamic>{
       'orderId': instance.orderId,
-      'cartItems': instance.cartItems,
+      'cartItems': instance.cartItems.map((e) => e.toJson()).toList(),
       'totalOrderPrice': instance.totalOrderPrice,
       'additionalCharges': instance.additionalCharges,
       'paymentMethod': instance.paymentMethod,

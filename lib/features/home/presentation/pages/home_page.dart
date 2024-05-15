@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:test_project/enums.dart';
-import 'package:test_project/res/res.dart';
-import 'package:test_project/util/util.dart';
+import 'package:test_project/core/enums/enums.dart';
+import 'package:test_project/core/res/res.dart';
+import 'package:test_project/core/util/util.dart';
 
 import '../presentation.dart';
 
@@ -18,6 +18,8 @@ class HomePage extends HookWidget {
     final tabController = useTabController(
       initialLength: tabList.length,
     );
+
+    final sortOption = useState<SortOptions?>(null);
 
     return Scaffold(
       body: CustomScrollView(

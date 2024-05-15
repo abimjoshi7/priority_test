@@ -1,11 +1,7 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../cart/domain/domain.dart';
 import '../../domain/domain.dart';
 
 part 'review_cubit.freezed.dart';
@@ -92,17 +88,5 @@ class ReviewCubit extends Cubit<ReviewState> {
     } catch (e) {
       return getReviewList(productId);
     }
-  }
-
-  void ted(List<CartItem> items) {
-    final mappedList = items.asMap().map(
-          (key, value) => MapEntry(
-            key.toString(),
-            value.toJson(),
-          ),
-        );
-    print(mappedList);
-    final relist = mappedList.values.map((e) => CartItem.fromJson(e)).toList();
-    print(relist);
   }
 }

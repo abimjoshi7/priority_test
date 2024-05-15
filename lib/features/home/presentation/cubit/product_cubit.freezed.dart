@@ -20,7 +20,8 @@ mixin _$ProductState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Product> products) success,
+    required TResult Function(List<Product> products, bool? lowestPrice)
+        success,
     required TResult Function(Exception? exception) failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +29,7 @@ mixin _$ProductState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Product> products)? success,
+    TResult? Function(List<Product> products, bool? lowestPrice)? success,
     TResult? Function(Exception? exception)? failure,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +37,7 @@ mixin _$ProductState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Product> products)? success,
+    TResult Function(List<Product> products, bool? lowestPrice)? success,
     TResult Function(Exception? exception)? failure,
     required TResult orElse(),
   }) =>
@@ -126,7 +127,8 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Product> products) success,
+    required TResult Function(List<Product> products, bool? lowestPrice)
+        success,
     required TResult Function(Exception? exception) failure,
   }) {
     return initial();
@@ -137,7 +139,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Product> products)? success,
+    TResult? Function(List<Product> products, bool? lowestPrice)? success,
     TResult? Function(Exception? exception)? failure,
   }) {
     return initial?.call();
@@ -148,7 +150,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Product> products)? success,
+    TResult Function(List<Product> products, bool? lowestPrice)? success,
     TResult Function(Exception? exception)? failure,
     required TResult orElse(),
   }) {
@@ -240,7 +242,8 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Product> products) success,
+    required TResult Function(List<Product> products, bool? lowestPrice)
+        success,
     required TResult Function(Exception? exception) failure,
   }) {
     return loading();
@@ -251,7 +254,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Product> products)? success,
+    TResult? Function(List<Product> products, bool? lowestPrice)? success,
     TResult? Function(Exception? exception)? failure,
   }) {
     return loading?.call();
@@ -262,7 +265,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Product> products)? success,
+    TResult Function(List<Product> products, bool? lowestPrice)? success,
     TResult Function(Exception? exception)? failure,
     required TResult orElse(),
   }) {
@@ -320,7 +323,7 @@ abstract class _$$SuccessImplCopyWith<$Res> {
           _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
       __$$SuccessImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Product> products});
+  $Res call({List<Product> products, bool? lowestPrice});
 }
 
 /// @nodoc
@@ -335,12 +338,17 @@ class __$$SuccessImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? products = null,
+    Object? lowestPrice = freezed,
   }) {
     return _then(_$SuccessImpl(
       products: null == products
           ? _value._products
           : products // ignore: cast_nullable_to_non_nullable
               as List<Product>,
+      lowestPrice: freezed == lowestPrice
+          ? _value.lowestPrice
+          : lowestPrice // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -348,7 +356,7 @@ class __$$SuccessImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SuccessImpl implements _Success {
-  const _$SuccessImpl({required final List<Product> products})
+  const _$SuccessImpl({required final List<Product> products, this.lowestPrice})
       : _products = products;
 
   final List<Product> _products;
@@ -360,8 +368,11 @@ class _$SuccessImpl implements _Success {
   }
 
   @override
+  final bool? lowestPrice;
+
+  @override
   String toString() {
-    return 'ProductState.success(products: $products)';
+    return 'ProductState.success(products: $products, lowestPrice: $lowestPrice)';
   }
 
   @override
@@ -369,12 +380,14 @@ class _$SuccessImpl implements _Success {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SuccessImpl &&
-            const DeepCollectionEquality().equals(other._products, _products));
+            const DeepCollectionEquality().equals(other._products, _products) &&
+            (identical(other.lowestPrice, lowestPrice) ||
+                other.lowestPrice == lowestPrice));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_products));
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_products), lowestPrice);
 
   @JsonKey(ignore: true)
   @override
@@ -387,10 +400,11 @@ class _$SuccessImpl implements _Success {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Product> products) success,
+    required TResult Function(List<Product> products, bool? lowestPrice)
+        success,
     required TResult Function(Exception? exception) failure,
   }) {
-    return success(products);
+    return success(products, lowestPrice);
   }
 
   @override
@@ -398,10 +412,10 @@ class _$SuccessImpl implements _Success {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Product> products)? success,
+    TResult? Function(List<Product> products, bool? lowestPrice)? success,
     TResult? Function(Exception? exception)? failure,
   }) {
-    return success?.call(products);
+    return success?.call(products, lowestPrice);
   }
 
   @override
@@ -409,12 +423,12 @@ class _$SuccessImpl implements _Success {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Product> products)? success,
+    TResult Function(List<Product> products, bool? lowestPrice)? success,
     TResult Function(Exception? exception)? failure,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(products);
+      return success(products, lowestPrice);
     }
     return orElse();
   }
@@ -458,10 +472,12 @@ class _$SuccessImpl implements _Success {
 }
 
 abstract class _Success implements ProductState {
-  const factory _Success({required final List<Product> products}) =
-      _$SuccessImpl;
+  const factory _Success(
+      {required final List<Product> products,
+      final bool? lowestPrice}) = _$SuccessImpl;
 
   List<Product> get products;
+  bool? get lowestPrice;
   @JsonKey(ignore: true)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -534,7 +550,8 @@ class _$FailureImpl implements _Failure {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<Product> products) success,
+    required TResult Function(List<Product> products, bool? lowestPrice)
+        success,
     required TResult Function(Exception? exception) failure,
   }) {
     return failure(exception);
@@ -545,7 +562,7 @@ class _$FailureImpl implements _Failure {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<Product> products)? success,
+    TResult? Function(List<Product> products, bool? lowestPrice)? success,
     TResult? Function(Exception? exception)? failure,
   }) {
     return failure?.call(exception);
@@ -556,7 +573,7 @@ class _$FailureImpl implements _Failure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(List<Product> products)? success,
+    TResult Function(List<Product> products, bool? lowestPrice)? success,
     TResult Function(Exception? exception)? failure,
     required TResult orElse(),
   }) {

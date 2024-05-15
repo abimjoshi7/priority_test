@@ -29,13 +29,11 @@ class ProductRepositoryImpl implements ProductRepository {
 
   @override
   Future<Either<Exception, int>> deleteT(int id) {
-    // TODO: implement deleteT
     throw UnimplementedError();
   }
 
   @override
   Future<Either<Exception, Product>> getT(int id) {
-    // TODO: implement getT
     throw UnimplementedError();
   }
 

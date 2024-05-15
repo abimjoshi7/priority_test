@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/svg.dart';
-
-import 'package:test_project/res/res.dart';
-import 'package:test_project/util/util.dart';
+import 'package:test_project/core/core.dart';
 
 class CustomSlidableTile extends StatelessWidget {
   const CustomSlidableTile({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.child,
     this.height,
-  }) : super(key: key);
+  });
 
   final VoidCallback onPressed;
   final Widget child;

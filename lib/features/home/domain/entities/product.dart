@@ -18,12 +18,13 @@ class Product with _$Product {
     String? genderName,
     required List<int> colors,
     required double avgRating,
+    required DateTime addedDate,
   }) = _Product;
 
   factory Product.fromJson(Map<String, dynamic> json) =>
       _$ProductFromJson(json);
 
-  factory Product.d() => const Product(
+  factory Product.d() => Product(
         id: -1,
         name: "",
         image: "",
@@ -36,5 +37,6 @@ class Product with _$Product {
         genderName: "",
         colors: [],
         avgRating: 0.0,
+        addedDate: DateTime.now(),
       );
 }

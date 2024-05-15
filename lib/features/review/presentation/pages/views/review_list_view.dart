@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:test_project/core/core.dart';
 
-import 'package:test_project/enums.dart';
 import 'package:test_project/features/review/domain/domain.dart';
 import 'package:test_project/features/review/presentation/cubit/review_cubit.dart';
-import 'package:test_project/res/res.dart';
-import 'package:test_project/util/util.dart';
-
-import '../../../../home/presentation/presentation.dart';
+import 'package:test_project/core/res/res.dart';
+import 'package:test_project/core/util/util.dart';
+import 'package:test_project/widgets/widgets.dart';
 
 class ReviewListView extends HookWidget {
   const ReviewListView({
@@ -96,11 +95,17 @@ class ReviewTile extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // Text(DummyUser.values
-              //     .firstWhere((element) => element.id == review.userId)
-              //     .name),
+              Text(
+                DummyUser.values
+                    .firstWhere((element) => element.id == review.userId)
+                    .name,
+                style: context.titleLarge,
+              ),
               Text(
                 review.createdDate.compareWithToday(),
+                style: context.titleLarge?.copyWith(
+                  color: context.onContainerColor,
+                ),
               )
             ],
           ),
@@ -120,6 +125,7 @@ class ReviewTile extends StatelessWidget {
           ),
           Text(
             review.comment ?? "",
+            style: context.bodySmall,
           ),
         ],
       ),

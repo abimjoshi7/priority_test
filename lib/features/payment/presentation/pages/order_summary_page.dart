@@ -1,26 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:test_project/enums.dart';
+import 'package:fpdart/fpdart.dart';
+import 'package:test_project/core/core.dart';
 
-import 'package:test_project/features/cart/domain/domain.dart';
-import 'package:test_project/features/cart/presentation/cubit/cart_cubit.dart';
 import 'package:test_project/features/features.dart';
-import 'package:test_project/features/payment/presentation/cubit/order_cubit.dart';
-import 'package:test_project/res/res.dart';
-import 'package:test_project/util/util.dart';
-import 'package:test_project/widgets/footer.dart';
-
-import '../../domain/domain.dart';
-import '../widgets/widgets.dart';
+import 'package:test_project/widgets/widgets.dart';
 
 class OrderSummaryPage extends HookWidget {
   const OrderSummaryPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final finalPrice = useState<double>(0);
     final paymentMethod = useState<PaymentMethod>(PaymentMethod.Card);
     final location = useState<Location>(Location.Tokyo);
     final shippingRate = useState<double>(0.05);
@@ -248,23 +239,59 @@ class OrderSummaryPage extends HookWidget {
                   ),
                 ),
               ),
-              Footer(
-                btnText: StringRes.kPayment,
-                leadingprice: total.toStringAsFixed(2),
-                onPressed: () {
-                  final orderItem = OrderItem(
-                    orderId: UniqueKey()
-                        .toString()
-                        .replaceAll('[', '')
-                        .replaceAll(']', ''),
-                    cartItems: cartList,
-                    paymentMethod: paymentMethod.value.label,
-                    location: location.value.label,
-                    additionalCharges: shippingCharge,
-                    totalOrderPrice: total,
+              BlocListener<OrderCubit, OrderState>(
+                listener: (context, state) {
+                  state.mapOrNull(
+                    success: (_) => context.showBottomSheet(
+                      SuccessSheet(
+                        label: "Purchase successful",
+                        info: "",
+                        left: OutlinedButton(
+                          onPressed: () {
+                            context.read<CartCubit>().clearCartItems();
+                            Navigator.pop(context);
+                          },
+                          child: const Text(
+                            "Cancel",
+                          ),
+                        ),
+                        right: ElevatedButton(
+                          onPressed: () {
+                            context.read<CartCubit>().clearCartItems();
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              RouteRes.kHomePage,
+                              (route) => false,
+                            );
+                          },
+                          child: Text("Go home"),
+                        ),
+                      ),
+                    ),
                   );
-                  print(orderItem);
+                  // state.mapOrNull(
+                  //   success: (_) => context.showBottomSheet(
+                  //     SuccessSheet(
+                  //       label: "Purchase successful", info: "", left: const SizedBox.shrink(), right: ElevatedButton(onPressed: () => , child: Text("Go home"))")),))
                 },
+                child: Footer(
+                  btnText: StringRes.kPayment,
+                  leadingprice: total.toStringAsFixed(2),
+                  onPressed: () {
+                    final orderItem = OrderItem(
+                      orderId: UniqueKey()
+                          .toString()
+                          .replaceAll('[', '')
+                          .replaceAll(']', ''),
+                      cartItems: cartList,
+                      paymentMethod: paymentMethod.value.label,
+                      location: location.value.label,
+                      additionalCharges: shippingCharge,
+                      totalOrderPrice: total,
+                    );
+                    context.read<OrderCubit>().createOrder(orderItem);
+                  },
+                ),
               ),
             ],
           );

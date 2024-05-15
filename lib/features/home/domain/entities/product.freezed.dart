@@ -32,6 +32,7 @@ mixin _$Product {
   String? get genderName => throw _privateConstructorUsedError;
   List<int> get colors => throw _privateConstructorUsedError;
   double get avgRating => throw _privateConstructorUsedError;
+  DateTime get addedDate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -55,7 +56,8 @@ abstract class $ProductCopyWith<$Res> {
       int genderType,
       String? genderName,
       List<int> colors,
-      double avgRating});
+      double avgRating,
+      DateTime addedDate});
 }
 
 /// @nodoc
@@ -83,6 +85,7 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
     Object? genderName = freezed,
     Object? colors = null,
     Object? avgRating = null,
+    Object? addedDate = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -133,6 +136,10 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
           ? _value.avgRating
           : avgRating // ignore: cast_nullable_to_non_nullable
               as double,
+      addedDate: null == addedDate
+          ? _value.addedDate
+          : addedDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 }
@@ -156,7 +163,8 @@ abstract class _$$ProductImplCopyWith<$Res> implements $ProductCopyWith<$Res> {
       int genderType,
       String? genderName,
       List<int> colors,
-      double avgRating});
+      double avgRating,
+      DateTime addedDate});
 }
 
 /// @nodoc
@@ -182,6 +190,7 @@ class __$$ProductImplCopyWithImpl<$Res>
     Object? genderName = freezed,
     Object? colors = null,
     Object? avgRating = null,
+    Object? addedDate = null,
   }) {
     return _then(_$ProductImpl(
       id: null == id
@@ -232,6 +241,10 @@ class __$$ProductImplCopyWithImpl<$Res>
           ? _value.avgRating
           : avgRating // ignore: cast_nullable_to_non_nullable
               as double,
+      addedDate: null == addedDate
+          ? _value.addedDate
+          : addedDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -251,7 +264,8 @@ class _$ProductImpl implements _Product {
       required this.genderType,
       this.genderName,
       required final List<int> colors,
-      required this.avgRating})
+      required this.avgRating,
+      required this.addedDate})
       : _sizes = sizes,
         _colors = colors;
 
@@ -294,10 +308,12 @@ class _$ProductImpl implements _Product {
 
   @override
   final double avgRating;
+  @override
+  final DateTime addedDate;
 
   @override
   String toString() {
-    return 'Product(id: $id, name: $name, image: $image, description: $description, price: $price, sizes: $sizes, brandType: $brandType, brandName: $brandName, genderType: $genderType, genderName: $genderName, colors: $colors, avgRating: $avgRating)';
+    return 'Product(id: $id, name: $name, image: $image, description: $description, price: $price, sizes: $sizes, brandType: $brandType, brandName: $brandName, genderType: $genderType, genderName: $genderName, colors: $colors, avgRating: $avgRating, addedDate: $addedDate)';
   }
 
   @override
@@ -322,7 +338,9 @@ class _$ProductImpl implements _Product {
                 other.genderName == genderName) &&
             const DeepCollectionEquality().equals(other._colors, _colors) &&
             (identical(other.avgRating, avgRating) ||
-                other.avgRating == avgRating));
+                other.avgRating == avgRating) &&
+            (identical(other.addedDate, addedDate) ||
+                other.addedDate == addedDate));
   }
 
   @JsonKey(ignore: true)
@@ -340,7 +358,8 @@ class _$ProductImpl implements _Product {
       genderType,
       genderName,
       const DeepCollectionEquality().hash(_colors),
-      avgRating);
+      avgRating,
+      addedDate);
 
   @JsonKey(ignore: true)
   @override
@@ -369,7 +388,8 @@ abstract class _Product implements Product {
       required final int genderType,
       final String? genderName,
       required final List<int> colors,
-      required final double avgRating}) = _$ProductImpl;
+      required final double avgRating,
+      required final DateTime addedDate}) = _$ProductImpl;
 
   factory _Product.fromJson(Map<String, dynamic> json) = _$ProductImpl.fromJson;
 
@@ -397,6 +417,8 @@ abstract class _Product implements Product {
   List<int> get colors;
   @override
   double get avgRating;
+  @override
+  DateTime get addedDate;
   @override
   @JsonKey(ignore: true)
   _$$ProductImplCopyWith<_$ProductImpl> get copyWith =>

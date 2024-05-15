@@ -6,6 +6,7 @@ class ProductState with _$ProductState {
   const factory ProductState.loading() = _Loading;
   const factory ProductState.success({
     required List<Product> products,
+    bool? lowestPrice,
   }) = _Success;
   const factory ProductState.failure([
     Exception? exception,

@@ -19,46 +19,66 @@ class ProductCubit extends Cubit<ProductState> {
   final GetProducts getProducts;
 
   Future<void> insertProduct(Product product) async {
-    emit(
-      const ProductState.loading(),
-    );
-    final updateProduct = await getAvgReview(product.id).then(
-      (value) => product = product.copyWith(
-        avgRating: value.toDouble(),
-      ),
-    );
-    return addProduct.call(updateProduct).then(
-          (value) => switch (value) {
-            Right<Exception, int>() => fetchProducts(),
-            Left<Exception, int>(:final value) => emit(
-                ProductState.failure(
-                  value,
+    try {
+      emit(
+        const ProductState.loading(),
+      );
+      final updateProduct = await getAvgReview(product.id).then(
+        (value) => product = product.copyWith(
+          avgRating: value.toDouble(),
+        ),
+      );
+      return addProduct.call(updateProduct).then(
+            (value) => switch (value) {
+              Right<Exception, int>() => fetchProducts(),
+              Left<Exception, int>(:final value) => emit(
+                  ProductState.failure(
+                    value,
+                  ),
                 ),
-              ),
-          },
-        );
+            },
+          );
+    } catch (e) {
+      emit(
+        ProductState.failure(
+          Exception(
+            e.toString(),
+          ),
+        ),
+      );
+    }
   }
 
   Future<void> fetchProducts([
     int? productId,
   ]) async {
-    emit(
-      const ProductState.loading(),
-    );
-    return getProducts.call(unit).then(
-          (value) => switch (value) {
-            Right<Exception, List<Product>>(:final value) => emit(
-                ProductState.success(
-                  products: value,
+    try {
+      emit(
+        const ProductState.loading(),
+      );
+      return getProducts.call(unit).then(
+            (value) => switch (value) {
+              Right<Exception, List<Product>>(:final value) => emit(
+                  ProductState.success(
+                    products: value,
+                  ),
                 ),
-              ),
-            Left<Exception, List<Product>>(:final value) => emit(
-                ProductState.failure(
-                  value,
+              Left<Exception, List<Product>>(:final value) => emit(
+                  ProductState.failure(
+                    value,
+                  ),
                 ),
-              ),
-          },
-        );
+            },
+          );
+    } catch (e) {
+      emit(
+        ProductState.failure(
+          Exception(
+            e.toString(),
+          ),
+        ),
+      );
+    }
   }
 
   List<Product> getProductList() {
@@ -77,20 +97,96 @@ class ProductCubit extends Cubit<ProductState> {
     }
   }
 
-  List<Product> filterBrand(int index) {
+  List<Product> filterBrand(
+    int brandType, {
+    double? startPrice,
+    double? endPrice,
+    bool? lowestPrice,
+    bool? recentlyAdded,
+    bool? highestReview,
+    int? genderType,
+    int? colorType,
+  }) {
     try {
       getProductList();
-      if (index != 0) {
-        var newList = List<Product>.from(getProductList()
-            .where((element) => element.brandType == index)
-            .toList());
+
+      if (brandType != 0) {
+        var newList = List<Product>.from(
+          getProductList().where(
+            (element) => element.brandType == brandType,
+          ),
+        ).toList();
         return newList;
       } else {
-        return getProductList();
+        return List<Product>.from(getProductList())
+            .where(
+              (element) => (startPrice != null && endPrice != null)
+                  ? element.price >= startPrice && element.price <= endPrice
+                  : startPrice != null
+                      ? element.price >= startPrice
+                      : endPrice != null
+                          ? element.price <= endPrice
+                          : true,
+            )
+            .where(
+              (element) => genderType != null
+                  ? element.genderType == genderType
+                  : colorType != null
+                      ? element.colors.contains(colorType)
+                      : true,
+            )
+            .toList()
+          ..sort(
+            (a, b) => highestReview == true
+                ? b.avgRating.compareTo(a.avgRating)
+                : lowestPrice == true
+                    ? a.price.compareTo(b.price)
+                    : recentlyAdded == true
+                        ? b.addedDate.compareTo(a.addedDate)
+                        : 0,
+          );
+        // ..where(
+        //   (element) => startPrice != null
+        //       ? element.price >= startPrice
+        //       : endPrice != null
+        //           ? element.price <= endPrice
+        //           : true,
+        // );
+        //   .where(
+        //     (element) => genderType != null
+        //         ? element.genderType == genderType
+        //         : colorType != null
+        //             ? element.colors.contains(colorType)
+        //             : true,
+        //   )
+        //   .toList()
+        // ..sort(
+        //   (a, b) => highestReview == true
+        //       ? b.avgRating.compareTo(a.avgRating)
+        //       : lowestPrice == true
+        //           ? a.price.compareTo(b.price)
+        //           : recentlyAdded == true
+        //               ? b.addedDate.compareTo(a.addedDate)
+        //               : 0,
+        // );
       }
     } catch (e) {
       return [];
     }
+  }
+
+  Product getExpensiveProduct() {
+    final products = getProductList();
+    if (products.isEmpty) return Product.d();
+    return products
+        .reduce((curr, next) => curr.price > next.price ? curr : next);
+  }
+
+  Product getCheapestProduct() {
+    final products = getProductList();
+    if (products.isEmpty) return Product.d();
+    return products
+        .reduce((curr, next) => curr.price < next.price ? curr : next);
   }
 
   int getItemCount([String? brandName]) {
@@ -120,4 +216,10 @@ class ProductCubit extends Cubit<ProductState> {
       return 0.0;
     }
   }
+
+  //  List<Product> _filterProducts(List<Product> products, RangeValues range) {
+  //   return products.where((product) {
+  //     return product.price >= range.start && product.price <= range.end;
+  //   }).toList();
+  // }
 }

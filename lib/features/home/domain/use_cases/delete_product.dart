@@ -1,5 +1,5 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:test_project/generics/use_case.dart';
+import 'package:test_project/core/generics/use_case.dart';
 
 import '../repository/repository.dart';
 

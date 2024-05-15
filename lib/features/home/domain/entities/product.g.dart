@@ -24,6 +24,7 @@ _$ProductImpl _$$ProductImplFromJson(Map<String, dynamic> json) =>
           .map((e) => (e as num).toInt())
           .toList(),
       avgRating: (json['avgRating'] as num).toDouble(),
+      addedDate: DateTime.parse(json['addedDate'] as String),
     );
 
 Map<String, dynamic> _$$ProductImplToJson(_$ProductImpl instance) =>
@@ -40,4 +41,5 @@ Map<String, dynamic> _$$ProductImplToJson(_$ProductImpl instance) =>
       'genderName': instance.genderName,
       'colors': instance.colors,
       'avgRating': instance.avgRating,
+      'addedDate': instance.addedDate.toIso8601String(),
     };

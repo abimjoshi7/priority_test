@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_project/util/util.dart';
+import 'package:test_project/core/core.dart';
 
 class CustomContainer extends StatelessWidget {
   const CustomContainer({

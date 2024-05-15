@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:test_project/res/res.dart';
-import 'package:test_project/routes/routes.dart';
+import 'package:test_project/core/res/res.dart';
+import 'package:test_project/core/routes/routes.dart';
+import 'package:test_project/features/features.dart';
 
 class FliterBtn extends StatelessWidget {
   const FliterBtn({
@@ -15,11 +17,21 @@ class FliterBtn extends StatelessWidget {
         context,
         RouteRes.kFilterPage,
       ),
-      icon: SvgPicture.asset(
-        DrawableRes.kIconSettings,
+      icon: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: BlocBuilder<FilterCubit, FilterState>(
+          builder: (context, state) {
+            return Badge(
+              isLabelVisible: context.read<FilterCubit>().getCount() > 0,
+              child: SvgPicture.asset(
+                DrawableRes.kIconSettings,
+              ),
+            );
+          },
+        ),
       ),
-      label: const Text(
-        StringRes.kFilter,
+      label: Text(
+        StringRes.kFilter.toUpperCase(),
       ),
     );
   }
